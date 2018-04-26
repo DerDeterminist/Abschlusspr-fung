@@ -15,16 +15,22 @@ public class GießAutomat implements Automaten{
 
     private void gießen(ArrayList<Feld> felder) {
         for (Feld feld : felder) {
-            if (feld.getPflanzenArten() == PflanzenArten.Mais) {
-                for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                    pflanze.setHoehe(pflanze.getHoehe() + PflanzenArten.Mais.getWachstum());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (feld.getPflanzenArten() == PflanzenArten.Mais) {
+                        for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+                            pflanze.setHoehe(pflanze.getHoehe() + PflanzenArten.Mais.getWachstum());
+                        }
+                    }
+                    if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
+                        for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+                            pflanze.setHoehe(pflanze.getHoehe() + PflanzenArten.Weizen.getWachstum());
+                        }
+                    }
                 }
-            }
-            if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
-                for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                    pflanze.setHoehe(pflanze.getHoehe() + PflanzenArten.Weizen.getWachstum());
-                }
-            }
+            });
+
         }
     }
 }

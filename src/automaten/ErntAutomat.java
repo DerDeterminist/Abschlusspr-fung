@@ -13,13 +13,18 @@ public class ErntAutomat implements Automaten{
 
     private void erten(ArrayList<Feld> felder){
         for (Feld feld : felder) {
-            ArrayList<FeldPflanzen> zuErnten = new ArrayList<>();
-            for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                if (pflanze.getHoehe()>pflanze.getPflanzenArten().getWachstum()){
-                    zuErnten.add(pflanze);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<FeldPflanzen> zuErnten = new ArrayList<>();
+                    for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+                        if (pflanze.getHoehe()>pflanze.getPflanzenArten().getWachstum()){
+                            zuErnten.add(pflanze);
+                        }
+                    }
+                    feld.getPflanzenliste().removeAll(zuErnten);
                 }
-            }
-            feld.getPflanzenliste().removeAll(zuErnten);
+            });
         }
     }
 }

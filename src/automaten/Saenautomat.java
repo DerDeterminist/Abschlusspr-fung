@@ -18,14 +18,20 @@ public class Saenautomat implements Automaten{
 
     private void saeen(ArrayList<Feld> felder){
         for (Feld feld : felder) {
-            while (feld.getPflanzenliste().size() < feld.getPflanzenAnz()) {
-                if (feld.getPflanzenArten() == PflanzenArten.Mais) {
-                    feld.getPflanzenliste().add(new Mais());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (feld.getPflanzenliste().size() < feld.getPflanzenAnz()) {
+                        if (feld.getPflanzenArten() == PflanzenArten.Mais) {
+                            feld.getPflanzenliste().add(new Mais());
+                        }
+                        if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
+                            feld.getPflanzenliste().add(new Weizen());
+                        }
+                    }
                 }
-                if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
-                    feld.getPflanzenliste().add(new Weizen());
-                }
-            }
+            });
+
         }
     }
 }
