@@ -13,12 +13,19 @@ public class Feld {
 
     PflanzenArten pflanzenArten;
     int pflanzenAnz = 50;
+    String gehoertZuNutzer;
 
+    public String getGehoertZuNutzer() {
+        return gehoertZuNutzer;
+    }
+
+    public void setGehoertZuNutzer(String gehoertZuNutzer) {
+        this.gehoertZuNutzer = gehoertZuNutzer;
+    }
 
     String name;
 
     ArrayList<FeldPflanzen> pflanzenliste = new ArrayList<>();
-    public volatile ArrayList<Feld> felder = new ArrayList<>();
 
 
     public Feld(String name,PflanzenArten pflanzenArten){
@@ -53,7 +60,7 @@ public class Feld {
                 pflanzenliste.add(new Mais());
             }
         }
-        felder.add(this);
+        new Util().getFelder().add(this);
     }
 
 
@@ -88,9 +95,5 @@ public class Feld {
 
     public void setPflanzenliste(ArrayList<FeldPflanzen> pflanzenliste) {
         this.pflanzenliste = pflanzenliste;
-    }
-
-    public ArrayList<Feld> getFelder() {
-        return felder;
     }
 }

@@ -33,7 +33,7 @@ public class main extends Application{
         ErntAutomat erntAutomat = new ErntAutomat();
         Saenautomat saenautomat = new Saenautomat();
         for (int i=0;i<60;i++) {
-            gießAutomat.arbeiten(feld.getFelder());
+            gießAutomat.arbeiten(new Util.getFelder());
         }
         erntAutomat.arbeiten(feld.getFelder());
         saenautomat.arbeiten(feld.getFelder());

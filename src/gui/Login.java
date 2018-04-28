@@ -1,5 +1,9 @@
 package gui;
 
+import Rechte.LoginHandling;
+import Rechte.Nutzer;
+import app.Util;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+
 import java.io.File;
 import java.net.MalformedURLException;
 
@@ -21,12 +26,14 @@ public class Login {
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");
 
-        Button login = new Button();
-        Button _newAcc = new Button();
         Label accPw = new Label("Passwort");
         Label accName = new Label("Benutzername");
         PasswordField accPwIn = new PasswordField();
         TextField accNameIn = new TextField();
+        Button _newAcc = new Button("neues Konto");
+        _newAcc.addEventHandler(ActionEvent.ACTION,(e) ->  new LoginHandling().neuerNutzer(accNameIn.getText(),accPwIn.getText()));
+        Button login = new Button("login");
+        login.addEventHandler(ActionEvent.ACTION,(e)-> new LoginHandling().loginHandling(new Util().getAlleNutzer(),accNameIn.getText(),accPwIn.getText()));
 
         StackPane p1 = new StackPane();
         File a = new File("res\\images\\the-simple-farm-logo-transpare.png");
@@ -37,6 +44,7 @@ public class Login {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
         p1.getChildren().add(background);
         GridPane p1_2 = new GridPane();
         p1_2.setHgap(10);
