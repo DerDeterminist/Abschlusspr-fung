@@ -15,5 +15,4 @@ public class System_exit {
             System.exit(0);
         }
     }
-
 }

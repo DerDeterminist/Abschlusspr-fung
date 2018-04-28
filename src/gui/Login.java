@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-
 import java.io.File;
 import java.net.MalformedURLException;
 
@@ -30,7 +29,7 @@ public class Login {
     public void login(Stage primaryStage){
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");
-        primaryStage.setOnCloseRequest((e)-> System_exit.exit());
+        primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
 
         Label hinweis = new Label(hinweistext);
 //        Label accPw = new Label("Passwort");
