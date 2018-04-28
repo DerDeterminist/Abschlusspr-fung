@@ -6,6 +6,8 @@ public abstract class FeldPflanzen {
     double hoehe;
     PflanzenArten pflanzenArten;
 
+
+
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }

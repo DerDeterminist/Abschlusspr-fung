@@ -1,5 +1,6 @@
 package app;
 
+import dao.LesenUndSchreibenLernen;
 import pflanzen.FeldPflanzen;
 import pflanzen.Mais;
 import pflanzen.PflanzenArten;
@@ -14,18 +15,10 @@ public class Feld {
     PflanzenArten pflanzenArten;
     int pflanzenAnz = 50;
     String gehoertZuNutzer;
-
-    public String getGehoertZuNutzer() {
-        return gehoertZuNutzer;
-    }
-
-    public void setGehoertZuNutzer(String gehoertZuNutzer) {
-        this.gehoertZuNutzer = gehoertZuNutzer;
-    }
-
     String name;
-
     ArrayList<FeldPflanzen> pflanzenliste = new ArrayList<>();
+
+
 
 
     public Feld(String name,PflanzenArten pflanzenArten){
@@ -41,12 +34,12 @@ public class Feld {
         feldEinrichten();
     }
 
-    public Feld(String name,PflanzenArten pflanzenArten,ArrayList<FeldPflanzen> pflanzenliste,int pflanzenAnz){
+    public Feld(String name,PflanzenArten pflanzenArten,ArrayList<FeldPflanzen> pflanzenliste,int pflanzenAnz,String gehoertZuNutzer){
         this.pflanzenArten = pflanzenArten;
         this.name = name;
         this.pflanzenliste = pflanzenliste;
         this.pflanzenAnz = pflanzenAnz;
-        feldEinrichten();
+        this.gehoertZuNutzer = gehoertZuNutzer;
     }
 
     private void feldEinrichten(){
@@ -60,10 +53,15 @@ public class Feld {
                 pflanzenliste.add(new Mais());
             }
         }
-        new Util().getFelder().add(this);
+        LesenUndSchreibenLernen.getFelder_inhalt().add(this);
     }
 
 
+    public String getGehoertZuNutzer() { return gehoertZuNutzer; }
+
+    public void setGehoertZuNutzer(String gehoertZuNutzer) {
+        this.gehoertZuNutzer = gehoertZuNutzer;
+    }
 
     public PflanzenArten getPflanzenArten() {
         return pflanzenArten;

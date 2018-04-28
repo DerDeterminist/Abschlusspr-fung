@@ -1,0 +1,38 @@
+package gui_handling;
+
+import app.Nutzer;
+import dao.LesenUndSchreibenLernen;
+import gui.Login;
+
+import java.util.ArrayList;
+
+public class LoginHandling {
+
+    public void neuerNutzer(String name,String passwort){
+        boolean nutzerSchonVorhanden = false;
+        if (name==null) {
+            Nutzer neuerNutzer = new Nutzer(name, passwort);
+            for (Nutzer nutzer :  (ArrayList<Nutzer>)LesenUndSchreibenLernen.nutzerLesen()) {
+                if (nutzer.getName()==neuerNutzer.getName()){
+                    nutzerSchonVorhanden = true;
+                }
+            }
+            if (!nutzerSchonVorhanden){
+                LesenUndSchreibenLernen.getNutzer_inhalt().add(neuerNutzer);
+                neuerNutzer.setAktuellerNutzer(neuerNutzer);
+            }else {
+                new Login().setHinweistext("Dieser Benutzername ist schon vergeben");
+//                JOptionPane.showMessageDialog(null,"Dieser Benutzername ist schon vergeben");
+            }
+        }else{
+            //todo warum wid der text nicht akutalisirt?
+            new Login().setHinweistext("Bitte geben Sie einen Benutzernamen ein");
+//            JOptionPane.showMessageDialog(null,"Bitte geben Sie einen Benutzernamen ein");
+        }
+    }
+
+    public void loginHandling(ArrayList<Nutzer> alleNutzer,String name,String passwort){
+
+    }
+
+}

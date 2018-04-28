@@ -1,6 +1,4 @@
-package Rechte;
-
-import java.util.ArrayList;
+package app;
 
 public class Nutzer {
 
