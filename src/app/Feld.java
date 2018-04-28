@@ -14,47 +14,11 @@ public class Feld {
     PflanzenArten pflanzenArten;
     int pflanzenAnz = 50;
 
-    public PflanzenArten getPflanzenArten() {
-        return pflanzenArten;
-    }
-
-    public void setPflanzenArten(PflanzenArten pflanzenArten) {
-        this.pflanzenArten = pflanzenArten;
-    }
-
-    public int getPflanzenAnz() {
-        return pflanzenAnz;
-    }
-
-    public void setPflanzenAnz(int pflanzenAnz) {
-        this.pflanzenAnz = pflanzenAnz;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<FeldPflanzen> getPflanzenliste() {
-        return pflanzenliste;
-    }
-
-    public void setPflanzenliste(ArrayList<FeldPflanzen> pflanzenliste) {
-        this.pflanzenliste = pflanzenliste;
-    }
-
-    public ArrayList<Feld> getFelder() {
-        return felder;
-    }
-
 
     String name;
-    ArrayList<FeldPflanzen> pflanzenliste = new ArrayList<>();
 
-    ArrayList<Feld> felder = new ArrayList<>();
+    ArrayList<FeldPflanzen> pflanzenliste = new ArrayList<>();
+    public volatile ArrayList<Feld> felder = new ArrayList<>();
 
 
     public Feld(String name,PflanzenArten pflanzenArten){
@@ -90,5 +54,43 @@ public class Feld {
             }
         }
         felder.add(this);
+    }
+
+
+
+    public PflanzenArten getPflanzenArten() {
+        return pflanzenArten;
+    }
+
+    public void setPflanzenArten(PflanzenArten pflanzenArten) {
+        this.pflanzenArten = pflanzenArten;
+    }
+
+    public int getPflanzenAnz() {
+        return pflanzenAnz;
+    }
+
+    public void setPflanzenAnz(int pflanzenAnz) {
+        this.pflanzenAnz = pflanzenAnz;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<FeldPflanzen> getPflanzenliste() {
+        return pflanzenliste;
+    }
+
+    public void setPflanzenliste(ArrayList<FeldPflanzen> pflanzenliste) {
+        this.pflanzenliste = pflanzenliste;
+    }
+
+    public ArrayList<Feld> getFelder() {
+        return felder;
     }
 }
