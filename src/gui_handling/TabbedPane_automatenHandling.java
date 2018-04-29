@@ -1,12 +1,17 @@
 package gui_handling;
 
 import app.Feld;
-import automaten.Automaten;
+import app.Util;
 import automaten.ErntAutomat;
 import automaten.GießAutomat;
 import automaten.Saenautomat;
 import dao.LesenUndSchreibenLernen;
 import gui.TabbedPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import pflanzen.FeldPflanzen;
+import pflanzen.PflanzenArten;
 
 import java.util.ArrayList;
 
@@ -49,5 +54,18 @@ public class TabbedPane_automatenHandling {
                 LesenUndSchreibenLernen.felderSchreiben();
             }
         }
+    }
+    public static TableView tabelleErstellen(String feldname){
+        TableView table = new TableView();
+        table.setPrefHeight(200);
+        TableColumn name = new TableColumn("Name");
+        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,String>("name"));
+        TableColumn hoehe = new TableColumn("Höhe");
+        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,Double>("hoehe"));
+        TableColumn pflanzenart = new TableColumn("Pflanzenart");
+        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen, PflanzenArten>("pflanzenArten"));
+        table.getColumns().addAll(name,hoehe,pflanzenart);
+        table.setItems(Util.getFeldpflanzenObservable(Util.getFeldByName(feldname)));
+        return table;
     }
 }

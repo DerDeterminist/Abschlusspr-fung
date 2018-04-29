@@ -19,6 +19,4 @@ public abstract class FeldPflanzen {
     public PflanzenArten getPflanzenArten() { return pflanzenArten; }
 
     public void setPflanzenArten(PflanzenArten pflanzenArten) { this.pflanzenArten = pflanzenArten; }
-
-
 }

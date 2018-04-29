@@ -2,12 +2,16 @@ package gui;
 
 import app.Feld;
 import app.Nutzer;
+import app.Util;
 import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
 import gui_handling.TabbedPane_automatenHandling;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -19,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import pflanzen.FeldPflanzen;
 import pflanzen.PflanzenArten;
 
 import java.io.File;
@@ -78,10 +83,17 @@ public class TabbedPane {
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
+        TabPane konsoloe = new TabPane();
+        border.setBottom(konsoloe);
 
         ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+            Tab tab = new Tab(newValue);
+            tab.setContent(TabbedPane_automatenHandling.tabelleErstellen(newValue));
+            konsoloe.getTabs().add(tab); });
         list.setPrefSize(170,200);
         border.setLeft(list);
         Label ueberschrift = new Label("Übersicht");
