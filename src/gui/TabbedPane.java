@@ -143,7 +143,7 @@ public class TabbedPane {
         ImageView background = null;
         try {
             background = new ImageView(new Image(new File("res\\images\\wallpaper-gluecksklee.jpg").toURL().toString()));
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
         }
         stackPane.getChildren().addAll(background,border);
