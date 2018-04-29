@@ -122,7 +122,6 @@ public class LesenUndSchreibenLernen {
                 pw.close();
             }
         }
-
     }
 
     public static ArrayList nutzerLesen() {

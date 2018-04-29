@@ -12,6 +12,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -19,6 +21,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import pflanzen.PflanzenArten;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
@@ -62,7 +66,13 @@ public class TabbedPane {
     private Node uebersicht_Contet(){
         StackPane stackPane = new StackPane();
         BorderPane border = new BorderPane();
-        stackPane.getChildren().addAll(border);
+        ImageView background = null;
+        try {
+            background = new ImageView(new Image(new File("res\\images\\wallpaper-gluecksklee.jpg").toURL().toString()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        stackPane.getChildren().addAll(background,border);
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
@@ -88,7 +98,13 @@ public class TabbedPane {
     private Node automatne_Content(){
         StackPane stackPane = new StackPane();
         BorderPane border = new BorderPane();
-        stackPane.getChildren().addAll(border);
+        ImageView background = null;
+        try {
+            background = new ImageView(new Image(new File("res\\images\\wallpaper-gluecksklee.jpg").toURL().toString()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        stackPane.getChildren().addAll(background,border);
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
@@ -124,7 +140,13 @@ public class TabbedPane {
     private Node stats_Content(){
         StackPane stackPane = new StackPane();
         BorderPane border = new BorderPane();
-        stackPane.getChildren().addAll(border);
+        ImageView background = null;
+        try {
+            background = new ImageView(new Image(new File("res\\images\\wallpaper-gluecksklee.jpg").toURL().toString()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        stackPane.getChildren().addAll(background,border);
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
         gridPane.setHgap(10);
@@ -145,12 +167,15 @@ public class TabbedPane {
     private Node rechte_Content(){
         StackPane stackPane = new StackPane();
         BorderPane border = new BorderPane();
-        stackPane.getChildren().addAll(border);
+        ImageView background = null;
+        try {
+            background = new ImageView(new Image(new File("res\\images\\stats.jpg").toURL().toString()));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        stackPane.getChildren().addAll(background,border);
         GridPane gridPane = new GridPane();
         border.setCenter(gridPane);
-
-        Label ueberschrift = new Label("Felder");
-        border.setTop(ueberschrift);
 
         return stackPane;
     }
