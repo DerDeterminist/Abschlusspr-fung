@@ -21,23 +21,6 @@ public class Main extends Application{
         LesenUndSchreibenLernen.felderLesen();
         LesenUndSchreibenLernen.nutzerLesen();
 
-        Feld feld = new Feld("sdf",PflanzenArten.Mais);
-        GießAutomat gießAutomat = new GießAutomat();
-        ErntAutomat erntAutomat = new ErntAutomat();
-        Saenautomat saenautomat = new Saenautomat();
-        for (int i=0;i<60;i++) {
-            gießAutomat.arbeiten(LesenUndSchreibenLernen.getFelder_inhalt());
-        }
-        erntAutomat.arbeiten(LesenUndSchreibenLernen.getFelder_inhalt());
-        saenautomat.arbeiten(LesenUndSchreibenLernen.getFelder_inhalt());
-
-        for (Feld feld1 : LesenUndSchreibenLernen.getFelder_inhalt()) {
-            System.out.println(feld1.getPflanzenliste().size());
-            for (FeldPflanzen pflanze : feld1.getPflanzenliste()) {
-                System.out.println(pflanze.getHoehe());
-            }
-        }
-
         launch(args);
     }
 

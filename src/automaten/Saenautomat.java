@@ -12,26 +12,23 @@ import java.util.List;
 public class Saenautomat implements Automaten{
 
     @Override
-    public void arbeiten(ArrayList<Feld> felder) {
-        saeen(felder);
+    public void arbeiten(Feld feld) {
+        saeen(feld);
     }
 
-    private void saeen(ArrayList<Feld> felder){
-        for (Feld feld : felder) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (feld.getPflanzenliste().size() < feld.getPflanzenAnz()) {
-                        if (feld.getPflanzenArten() == PflanzenArten.Mais) {
-                            feld.getPflanzenliste().add(new Mais());
-                        }
-                        if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
-                            feld.getPflanzenliste().add(new Weizen());
-                        }
+    private void saeen(Feld feld){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (feld.getPflanzenliste().size() < feld.getPflanzenAnz()) {
+                    if (feld.getPflanzenArten() == PflanzenArten.Mais) {
+                        feld.getPflanzenliste().add(new Mais());
+                    }
+                    if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
+                        feld.getPflanzenliste().add(new Weizen());
                     }
                 }
-            });
-
-        }
+            }
+        });
     }
 }

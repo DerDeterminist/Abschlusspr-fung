@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface Automaten {
 
-    void arbeiten(ArrayList<Feld> felder);
+    void arbeiten(Feld feld);
 
 }

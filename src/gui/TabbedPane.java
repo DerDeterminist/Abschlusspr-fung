@@ -4,8 +4,10 @@ import app.Feld;
 import app.Nutzer;
 import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
+import gui_handling.TabbedPane_automatenHandling;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import pflanzen.PflanzenArten;
 
@@ -21,13 +24,12 @@ import java.util.ArrayList;
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
 public class TabbedPane {
-
     ListView<String> list = new ListView<String>();
-    ArrayList<Feld> felder_des_Nutzers = new ArrayList<>();
+
+    static ArrayList<Feld> felder_des_Nutzers = new ArrayList<>();
     static int anzFelderDesNutzers = 0;
     static int davonMeis = 0;
     static int davonWeizen = 0;
-
     public void starteProgramm(Stage primaryStage){
         listenStatsGeneriren();
 
@@ -67,7 +69,11 @@ public class TabbedPane {
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
 
-        border.setLeft(liste_FelderListe_aneigen());
+        ListView<String> list = new ListView<String>();
+        list.setItems(liste_FelderListe_aneigen());
+        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        list.setPrefSize(170,200);
+        border.setLeft(list);
         Label ueberschrift = new Label("Übersicht");
         border.setTop(ueberschrift);
 
@@ -89,16 +95,26 @@ public class TabbedPane {
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
 
-        border.setLeft(liste_FelderListe_aneigen());
-        Label ueberschrift = new Label("Automaten");
+        ListView<String> list = new ListView<String>();
+        list.setItems(liste_FelderListe_aneigen());
+        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        list.setPrefSize(170,200);
+        border.setLeft(list);
+        Label ueberschrift = new Label("Felder                          Automaten");
+        ueberschrift.setFont(new Font("Arial",20));
         border.setTop(ueberschrift);
 
+
         Button ernen = new Button("Ernten");
-        Button geisßen = new Button("Gießen");
+        Button geißen = new Button("Gießen");
         Button saeen = new Button("Säen");
         Button alles = new Button("alle Automaten");
+        ernen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().erntenButton(getSeleked_fromList()));
+        geißen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().geißenButton(getSeleked_fromList()));
+        saeen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().saeenButton(getSeleked_fromList()));
+        alles.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().allesButton(getSeleked_fromList()));
         gridPane.add(ernen,3,2);
-        gridPane.add(geisßen,4,2);
+        gridPane.add(geißen,4,2);
         gridPane.add(saeen,5,2);
         gridPane.add(alles,6,2);
 
@@ -115,8 +131,12 @@ public class TabbedPane {
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
 
-        border.setLeft(liste_FelderListe_aneigen());
-        Label ueberschrift = new Label("Auswertung");
+        ListView<String> list = new ListView<String>();
+        list.setItems(liste_FelderListe_aneigen());
+        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        list.setPrefSize(170,200);
+        border.setLeft(list);
+        Label ueberschrift = new Label("Felder");
         border.setTop(ueberschrift);
 
         return stackPane;
@@ -129,13 +149,13 @@ public class TabbedPane {
         GridPane gridPane = new GridPane();
         border.setCenter(gridPane);
 
-        Label ueberschrift = new Label("Einstellungen");
+        Label ueberschrift = new Label("Felder");
         border.setTop(ueberschrift);
 
         return stackPane;
     }
 
-    private Node liste_FelderListe_aneigen(){
+    private ObservableList liste_FelderListe_aneigen(){
 
         //todo villeicht zusammenfassen
         ArrayList<String> namen_felder_des_Nutzers = new ArrayList<>();
@@ -147,19 +167,15 @@ public class TabbedPane {
                 namen_felder_des_Nutzers);
         list.setItems(items);
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        list.setPrefSize(100,200);
-        return list;
-    }
-
-    private ArrayList<String> getSeleked_fromList(){
-        return(ArrayList<String>)list.getSelectionModel().getSelectedItems();
+        list.setPrefSize(170,200);
+        return items;
     }
 
     private void listenStatsGeneriren(){
 
         try {
             for (Feld feld : LesenUndSchreibenLernen.getFelder_inhalt()) {
-                if (feld.getGehoertZuNutzer().equals(Nutzer.getAktuellerNutzer())) {
+                if (feld.getGehoertZuNutzer().equals(Nutzer.getAktuellerNutzer().getName())) {
                     felder_des_Nutzers.add(feld);
                     anzFelderDesNutzers++;
                     if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
@@ -173,5 +189,17 @@ public class TabbedPane {
         }
         catch (NullPointerException e){//wenn nutzer kein feld
         }
+    }
+
+    public ArrayList<String> getSeleked_fromList(){
+        ArrayList<String> ausgewaehlt = new ArrayList<>();
+        for (String item : list.getSelectionModel().getSelectedItems()) {
+            ausgewaehlt.add(item);
+        }
+        return ausgewaehlt;
+    }
+
+    public static ArrayList<Feld> getFelder_des_Nutzers() {
+        return felder_des_Nutzers;
     }
 }
