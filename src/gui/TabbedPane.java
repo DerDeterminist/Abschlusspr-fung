@@ -52,7 +52,7 @@ public class TabbedPane {
         tab_rechte.setContent(rechte_Content());
         tabPane.getTabs().addAll(tab_uebersicht,tab_automaten,tab_stats,tab_rechte);
 
-        Scene scene = new Scene(tabPane,600,450);
+        Scene scene = new Scene(tabPane,850,600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -72,8 +72,8 @@ public class TabbedPane {
         border.setTop(ueberschrift);
 
         Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.getAktuellerNutzer().getName()+": "+anzFelderDesNutzers
-                                                +"\ndavon Meis: "+davonMeis
-                                                +"\ndavon Weizen; "+davonWeizen);
+                                                +"\ndavon Meisfelder: "+davonMeis
+                                                +"\ndavon Weizenfelder; "+davonWeizen);
         gridPane.add(kurzeInfoUeberFelder,0,0);
 
         return stackPane;
@@ -84,11 +84,23 @@ public class TabbedPane {
         BorderPane border = new BorderPane();
         stackPane.getChildren().addAll(border);
         GridPane gridPane = new GridPane();
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
+        gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
 
         border.setLeft(liste_FelderListe_aneigen());
         Label ueberschrift = new Label("Automaten");
         border.setTop(ueberschrift);
+
+        Button ernen = new Button("Ernten");
+        Button geisßen = new Button("Gießen");
+        Button saeen = new Button("Säen");
+        Button alles = new Button("alle Automaten");
+        gridPane.add(ernen,3,2);
+        gridPane.add(geisßen,4,2);
+        gridPane.add(saeen,5,2);
+        gridPane.add(alles,6,2);
 
         return stackPane;
     }
@@ -98,6 +110,9 @@ public class TabbedPane {
         BorderPane border = new BorderPane();
         stackPane.getChildren().addAll(border);
         GridPane gridPane = new GridPane();
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
+        gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
 
         border.setLeft(liste_FelderListe_aneigen());
@@ -142,17 +157,21 @@ public class TabbedPane {
 
     private void listenStatsGeneriren(){
 
-        for (Feld feld : LesenUndSchreibenLernen.getFelder_inhalt()) {
-            if (feld.getGehoertZuNutzer().equals(Nutzer.getAktuellerNutzer())){
-                felder_des_Nutzers.add(feld);
-                anzFelderDesNutzers++;
-                if (feld.getPflanzenArten()== PflanzenArten.Weizen){
-                    davonWeizen++;
-                }
-                if (feld.getPflanzenArten() == PflanzenArten.Weizen){
-                    davonWeizen++;
+        try {
+            for (Feld feld : LesenUndSchreibenLernen.getFelder_inhalt()) {
+                if (feld.getGehoertZuNutzer().equals(Nutzer.getAktuellerNutzer())) {
+                    felder_des_Nutzers.add(feld);
+                    anzFelderDesNutzers++;
+                    if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
+                        davonWeizen++;
+                    }
+                    if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
+                        davonWeizen++;
+                    }
                 }
             }
+        }
+        catch (NullPointerException e){//wenn nutzer kein feld
         }
     }
 }

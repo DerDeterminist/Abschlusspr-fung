@@ -20,7 +20,7 @@ public class LesenUndSchreibenLernen {
 
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(new File("\\res\\index\\index.csv"));
+            pw = new PrintWriter(new File("res\\index\\index.csv"));
             for (Feld feld : Felder_inhalt) {
                 pw.println(feld.getName()+";"+feld.getPflanzenArten()+     ";"+feld.getPflanzenAnz()+";"+feld.getGehoertZuNutzer());
                 pflanzenSchreiben(feld.getPflanzenliste(),feld.getName());
@@ -37,10 +37,7 @@ public class LesenUndSchreibenLernen {
     public static ArrayList felderLesen() {
 
         try {
-            System.out.println(new File("res\\index\\index.csv").getAbsoluteFile());
             BufferedReader br = new BufferedReader(new FileReader(new File("res\\index\\index.csv")));
-
-
 
             String line = null;
             while ((line = br.readLine())!=null){
@@ -54,8 +51,8 @@ public class LesenUndSchreibenLernen {
                     temp = PflanzenArten.Weizen;
                 }
                 Felder_inhalt.add(new Feld(objekte[0],temp,pflanzenLesen(objekte[0]),Integer.parseInt(objekte[2]),objekte[3]));
-                br.close();
             }
+            br.close();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -67,7 +64,7 @@ public class LesenUndSchreibenLernen {
 
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(new File("\\res\\felder\\"+dateiName+".csv"));
+            pw = new PrintWriter(new File("res\\felder\\"+dateiName+".csv"));
             for (FeldPflanzen pflanze : inhalt) {
                 pw.println(pflanze.getName()+";"+pflanze.getHoehe()+";"+pflanze.getPflanzenArten());
             }
@@ -85,7 +82,8 @@ public class LesenUndSchreibenLernen {
         ArrayList<FeldPflanzen> pflanzenArtenArrayList = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File("\\res\\felder\\"+dateiName+".csv")));
+            System.out.println(new File("res\\felder\\"+dateiName+".csv").getAbsolutePath());
+            BufferedReader br = new BufferedReader(new FileReader(new File("res\\felder\\"+dateiName+".csv")));
 
             String line = null;
             while ((line = br.readLine())!=null){
@@ -94,11 +92,11 @@ public class LesenUndSchreibenLernen {
                 String[] objekte = line.split(";");
                 if (objekte[2].equals("Mais")) {
                     temp =  PflanzenArten.Mais;
-                    pflanzenArtenArrayList.add(new Mais(objekte[0], Integer.parseInt(objekte[1]),temp));
+                    pflanzenArtenArrayList.add(new Mais(objekte[0], Double.parseDouble(objekte[1]),temp));
                 }
                 if (objekte[2].equals("Weizen")) {
                     temp =  PflanzenArten.Weizen;
-                    pflanzenArtenArrayList.add(new Weizen(objekte[0], Integer.parseInt(objekte[1]),temp));
+                    pflanzenArtenArrayList.add(new Weizen(objekte[0], Double.parseDouble(objekte[1]),temp));
                 }
             }
             br.close();
@@ -113,7 +111,7 @@ public class LesenUndSchreibenLernen {
 
         PrintWriter pw = null;
         try {
-            pw = new PrintWriter(new File("\\res\\index\\nutzer.csv"));
+            pw = new PrintWriter(new File("res\\index\\nutzer.csv"));
             for (Nutzer nutzer : Nutzer_inhalt) {
                 pw.println(nutzer.getName()+";"+nutzer.getPasswort());
             }
@@ -130,13 +128,10 @@ public class LesenUndSchreibenLernen {
     public static ArrayList nutzerLesen() {
 
         try {
-            System.out.println(new File("res\\index\\nutzer.csv").getAbsolutePath());
             BufferedReader br = new BufferedReader(new FileReader(new File("res\\index\\nutzer.csv")));
 
-
-
-        String line = null;
-        while ((line = br.readLine())!=null){
+            String line = null;
+            while ((line = br.readLine())!=null){
 
             String[] objekte = line.split(";");
             Nutzer_inhalt.add(new Nutzer(objekte[0],objekte[1]));

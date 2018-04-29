@@ -44,7 +44,7 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) {
 
-        new TabbedPane().starteProgramm(primaryStage);
-//        new Login().login(primaryStage);
+//        new TabbedPane().starteProgramm(primaryStage);
+        new Login().login(primaryStage);
     }
 }

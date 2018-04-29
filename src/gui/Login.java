@@ -3,6 +3,8 @@ package gui;
 import gui_handling.LoginHandling;
 import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -21,12 +23,9 @@ import java.net.MalformedURLException;
 
 public class Login {
 
-    public void setHinweistext(String hinweistext) {
-        Login.hinweistext = hinweistext;
-    }
     public static String hinweistext = "";
-    static Stage primaryStage;
 
+    static Stage primaryStage;
     public void login(Stage primaryStage){
         this.primaryStage = primaryStage;
 
@@ -35,6 +34,7 @@ public class Login {
         primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
 
         Label hinweis = new Label(hinweistext);
+
 //        Label accPw = new Label("Passwort");
 //        Label accName = new Label("Benutzername");
         PasswordField accPwIn = new PasswordField();
@@ -47,8 +47,6 @@ public class Login {
         login.addEventHandler(ActionEvent.ACTION,(e)-> new LoginHandling().loginHandling(LesenUndSchreibenLernen.getNutzer_inhalt(),accNameIn.getText(),accPwIn.getText()));
 
         StackPane p1 = new StackPane();
-        File a = new File("res\\images\\the-simple-farm-logo-transpare.png");
-        System.out.println(a.getAbsolutePath());
         ImageView background = null;
         try {
             background = new ImageView(new Image(new File("res\\images\\the-simple-farm-logo-transpare.png").toURL().toString()));
@@ -76,8 +74,11 @@ public class Login {
         primaryStage.show();
     }
 
-
     public static Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void setHinweistext(String hinweistext) {
+        Login.hinweistext = hinweistext;
     }
 }
