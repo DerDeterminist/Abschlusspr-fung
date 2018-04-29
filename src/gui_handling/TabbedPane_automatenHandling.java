@@ -1,6 +1,7 @@
 package gui_handling;
 
 import app.Feld;
+import app.Nutzer;
 import app.Util;
 import automaten.ErntAutomat;
 import automaten.GießAutomat;
@@ -55,12 +56,20 @@ public class TabbedPane_automatenHandling {
             }
         }
     }
+    public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
+
+        Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.getAktuellerNutzer().getName());
+        feld.feldEinrichten();
+        LesenUndSchreibenLernen.getFelder_inhalt().add(feld);
+
+    }
     public static TableView tabelleErstellen(String feldname){
         TableView table = new TableView();
-        table.setPrefHeight(200);
+        table.setPrefHeight(250);
         TableColumn name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,String>("name"));
         TableColumn hoehe = new TableColumn("Höhe");
+        //todo höhe und pflanzenart wird nicht angezeigt
         name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,Double>("hoehe"));
         TableColumn pflanzenart = new TableColumn("Pflanzenart");
         name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen, PflanzenArten>("pflanzenArten"));

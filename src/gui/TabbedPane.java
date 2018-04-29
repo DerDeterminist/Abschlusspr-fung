@@ -18,9 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import pflanzen.FeldPflanzen;
@@ -132,6 +130,24 @@ public class TabbedPane {
         ueberschrift.setFont(new Font("Arial",20));
         border.setTop(ueberschrift);
 
+        GridPane gridNeu = new GridPane();
+        gridNeu.setHgap(10);
+        gridNeu.setVgap(10);
+        Label neu = new Label("Daten für neues Feld");
+        TextField name = new TextField();
+        name.setPromptText("Name des Feldes");
+        TextField anz = new TextField();
+        anz.setPromptText("Maximale Anzal der Pflanzen");
+        ComboBox arten = new ComboBox();
+        Button button_neu = new Button("Neues Feld");
+        arten.setItems(Util.getPflanzenartenObservable());
+        gridNeu.add(neu,0,0);
+        gridNeu.add(name,0,1);
+        gridNeu.add(anz,0,2);
+        gridNeu.add(arten,0,3);
+        gridNeu.add(button_neu,0,4);
+        border.setRight(gridNeu);
+
 
         Button ernen = new Button("Ernten");
         Button geißen = new Button("Gießen");
@@ -141,6 +157,7 @@ public class TabbedPane {
         geißen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().geißenButton(getSeleked_fromList()));
         saeen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().saeenButton(getSeleked_fromList()));
         alles.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().allesButton(getSeleked_fromList()));
+        button_neu.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().neuButton(name.getText(),Util.StringToPflanzenart(arten.getSelectionModel().getSelectedItem().toString()),Integer.parseInt(anz.getText())));
         gridPane.add(ernen,3,2);
         gridPane.add(geißen,4,2);
         gridPane.add(saeen,5,2);

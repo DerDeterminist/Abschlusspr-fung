@@ -19,18 +19,17 @@ public class Feld {
     ArrayList<FeldPflanzen> pflanzenliste = new ArrayList<>();
 
 
-
-
     public Feld(String name,PflanzenArten pflanzenArten){
         this.pflanzenArten = pflanzenArten;
         this.name = name;
         feldEinrichten();
     }
 
-    public Feld(String name,PflanzenArten pflanzenArten,ArrayList<FeldPflanzen> pflanzenliste){
+    public Feld(String name,PflanzenArten pflanzenArten,int pflanzenAnz,String gehoertZuNutzer){
         this.pflanzenArten = pflanzenArten;
         this.name = name;
-        this.pflanzenliste = pflanzenliste;
+        this.pflanzenAnz = pflanzenAnz;
+        this.gehoertZuNutzer = gehoertZuNutzer;
         feldEinrichten();
     }
 
@@ -42,7 +41,7 @@ public class Feld {
         this.gehoertZuNutzer = gehoertZuNutzer;
     }
 
-    private void feldEinrichten(){
+    public void feldEinrichten(){
         if (pflanzenArten == PflanzenArten.Weizen) {
             for (int i = 0; i < pflanzenAnz; i++) {
                 pflanzenliste.add(new Weizen());
