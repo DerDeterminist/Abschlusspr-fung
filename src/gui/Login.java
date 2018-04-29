@@ -25,8 +25,11 @@ public class Login {
         Login.hinweistext = hinweistext;
     }
     public static String hinweistext = "";
+    static Stage primaryStage;
 
     public void login(Stage primaryStage){
+        this.primaryStage = primaryStage;
+
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");
         primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
@@ -68,10 +71,13 @@ public class Login {
         p1.getChildren().add(p1_2);
 
 
-
         Scene scene = new Scene(p1,600,450);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }

@@ -5,18 +5,18 @@ public class Nutzer {
     String name;
     String passwort;
 
-    Nutzer aktuellerNutzer;
+    static Nutzer aktuellerNutzer;
 
     public Nutzer(String name, String passwort){
         this.name = name;
         this.passwort = passwort;
     }
 
-    public void setAktuellerNutzer(Nutzer aktuellerNutzer) {
-        this.aktuellerNutzer = aktuellerNutzer;
+    public static void setAktuellerNutzer(Nutzer aktuellerNutzerIn) {
+        aktuellerNutzer = aktuellerNutzerIn;
     }
 
-    public Nutzer getAktuellerNutzer() {
+    public static Nutzer getAktuellerNutzer() {
         return aktuellerNutzer;
     }
 
