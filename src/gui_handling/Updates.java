@@ -10,7 +10,6 @@ public class Updates extends Task<Integer>{
         return null;
     }
 
-
     @Override
     protected void updateTitle(String title) {
         super.updateTitle(title);

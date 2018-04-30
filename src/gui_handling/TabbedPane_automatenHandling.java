@@ -68,20 +68,18 @@ public class TabbedPane_automatenHandling {
     }
 
 
-    public static TableView tabelleErstellen(String feldname){
-        TableView table = new TableView();
-        table.setPrefHeight(250);
-        TableColumn name = new TableColumn("Name");
-        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,String>("name"));
-        TableColumn hoehe = new TableColumn("Höhe");
-        //todo höhe und pflanzenart wird nicht angezeigt
-        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,Double>("hoehe"));
-        TableColumn pflanzenart = new TableColumn("Pflanzenart");
-        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen, PflanzenArten>("pflanzenArten"));
-        table.getColumns().addAll(name,hoehe,pflanzenart);
-        table.setItems(Util.getFeldpflanzenObservable(Util.getFeldByName(feldname)));
-        return table;
-    }
-
-
+//    public static TableView tabelleErstellen(String feldname){
+//        TableView table = new TableView();
+//        table.setPrefHeight(250);
+//        TableColumn name = new TableColumn("Name");
+//        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,String>("name"));
+//        TableColumn hoehe = new TableColumn("Höhe");
+//        //todo höhe und pflanzenart wird nicht angezeigt
+//        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,Double>("hoehe"));
+//        TableColumn pflanzenart = new TableColumn("Pflanzenart");
+//        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen, PflanzenArten>("pflanzenArten"));
+//        table.getColumns().addAll(name,hoehe,pflanzenart);
+//        table.setItems(Util.getFeldpflanzenObservable(Util.getFeldByName(feldname)));
+//        return table;
+//    }
 }

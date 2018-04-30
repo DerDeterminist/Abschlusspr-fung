@@ -13,35 +13,40 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 import pflanzen.FeldPflanzen;
 
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
+public class BarChart_ErwarteErnte {
 
-public class BarChart_PflanzenHoehe{
-
-    public Node BarCartPfanenHoehe(String name){
+    public Node BarChart_ErwarteErnte(){
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> bc =
                 new BarChart<String,Number>(xAxis,yAxis);
-        xAxis.setLabel("Pflanzen");
+        xAxis.setLabel("Felder");
         xAxis.setTickLabelFont(Util.ueberschriftFont);
         xAxis.setTickLabelFill(Color.BLACK);
         //todo label yAxis übernimmt die werte nicht
-        yAxis.setLabel("Höhe");
+        yAxis.setLabel("Erwartete Ernte");
         yAxis.setTickLabelFont(Util.ueberschriftFont);
         yAxis.setTickLabelFill(Color.BLACK);
 
-
-        for (FeldPflanzen pflanze : Util.getFeldByName(name).getPflanzenliste()) {
-
-            XYChart.Series series = new XYChart.Series();
-            series.getData().add(new XYChart.Data(pflanze.getName(),pflanze.getHoehe()));
-            bc.getData().add(series);
-
-        }
+//         TabbedPane.getDruchschnitlicheHoehe();
+//        for (String key : (HashMap)TabbedPane.getDruchschnitlicheHoehe()) {
+//
+//        }
+//
+//        for (KeyEvent feld : ) {
+//
+//            XYChart.Series series = new XYChart.Series();
+//            series.getData().add(new XYChart.Data(pflanze.getName(),pflanze.getHoehe()));
+//            bc.getData().add(series);
+//
+//        }
         bc.setBarGap(8);
         bc.setCategoryGap(8);
         bc.setLegendVisible(false);
@@ -67,4 +72,5 @@ public class BarChart_PflanzenHoehe{
 
         return bc;
     }
+
 }

@@ -288,14 +288,14 @@ public class TabbedPane {
         return vorrausichlicheErnte;
     }
 
-    public static Map getDruchschnitlicheHoehe(){
-        HashMap<String,Double> durchschnittlicheHoehe = new HashMap<>();
+    public static ArrayList getDruchschnitlicheHoehe(){
+        ArrayList<String> durchschnittlicheHoehe = new ArrayList<>();
         for (Feld feld : getFelder_des_Nutzers()) {
             double gesamtHoehe =0;
             for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
                 gesamtHoehe += pflanze.getHoehe();
             }
-            durchschnittlicheHoehe.put(feld.getName(),gesamtHoehe/feld.getPflanzenliste().size());
+            durchschnittlicheHoehe.add(feld.getName().toString()+";+"+String.valueOf(gesamtHoehe/feld.getPflanzenliste().size()));
         }
         return durchschnittlicheHoehe;
     }
