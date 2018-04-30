@@ -13,6 +13,9 @@ import pflanzen.PflanzenArten;
 import java.util.ArrayList;
 
 public class LoginHandling {
+    Updates update = new Updates();
+    Bindings bindings = new Bindings();
+
 
     public void neuerNutzer(String name, String passwort) {
         boolean nutzerSchonVorhanden = false;
@@ -32,12 +35,12 @@ public class LoginHandling {
                 new Feld("Maisfeld "+neuerNutzer.getName(),PflanzenArten.Mais,50,neuerNutzer.getName());
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             } else {
-                new Login().setHinweis(new Label("Dieser Benutzername ist schon vergeben"));
+                update.updateTitle("Dieser Benutzername ist schon vergeben");
 //                JOptionPane.showMessageDialog(null,"Dieser Benutzername ist schon vergeben");
             }
         } else {
             //todo warum wid der text nicht akutalisirt?
-            new Login().setHinweis(new Label("Bitte geben Sie einen Benutzernamen ein"));
+            update.updateTitle("Bitte geben Sie einen Benutzernamen ein");
 //            JOptionPane.showMessageDialog(null,"Bitte geben Sie einen Benutzernamen ein");
         }
     }
@@ -49,7 +52,7 @@ public class LoginHandling {
                 Nutzer.setAktuellerNutzer(nutzer);
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             }else {
-                new Login().setHinweis(new Label("Falsche Anmeldedaten"));
+                update.updateTitle("Falsche Anmeldedaten");
             }
         }
     }

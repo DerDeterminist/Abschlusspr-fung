@@ -27,6 +27,8 @@ import pflanzen.PflanzenArten;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
@@ -34,6 +36,7 @@ public class TabbedPane {
     ListView<String> list = new ListView<String>();
 
     static ArrayList<Feld> felder_des_Nutzers = new ArrayList<>();
+
     static int anzFelderDesNutzers = 0;
     static int davonMeis = 0;
     static int davonWeizen = 0;
@@ -65,7 +68,6 @@ public class TabbedPane {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
     private Node uebersicht_Contet(){
         StackPane stackPane = new StackPane();
         BorderPane border = new BorderPane();
@@ -82,15 +84,15 @@ public class TabbedPane {
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
         TabPane konsoloe = new TabPane();
+        konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
         ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-
             Tab tab = new Tab(newValue);
-            tab.setContent(TabbedPane_automatenHandling.tabelleErstellen(newValue));
+            tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
             konsoloe.getTabs().add(tab); });
         list.setPrefSize(170,200);
         list.setMaxSize(170,300);
@@ -98,10 +100,9 @@ public class TabbedPane {
         Label ueberschrift = new Label("Übersicht");
         border.setTop(ueberschrift);
 
-        Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.getAktuellerNutzer().getName()+": "+anzFelderDesNutzers
-                                                +"\ndavon Meisfelder: "+davonMeis
-                                                +"\ndavon Weizenfelder: "+davonWeizen);
+        Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.getAktuellerNutzer().getName()+": "+anzFelderDesNutzers);
         gridPane.add(kurzeInfoUeberFelder,0,0);
+        gridPane.add(new Pie_Chart_Pflanzenarten().pieChart_pflanzenarten(),0,1);
 
         return stackPane;
     }
@@ -121,10 +122,17 @@ public class TabbedPane {
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
+        TabPane konsoloe = new TabPane();
+        konsoloe.setMaxHeight(300);
+        border.setBottom(konsoloe);
 
         ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            Tab tab = new Tab(newValue);
+            tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
+            konsoloe.getTabs().add(tab); });
         list.setPrefSize(170,200);
         list.setMaxSize(170,300);
         border.setLeft(list);
@@ -155,15 +163,18 @@ public class TabbedPane {
         Button geißen = new Button("Gießen");
         Button saeen = new Button("Säen");
         Button alles = new Button("alle Automaten");
+        Button loeschen = new Button("Löschen");
         ernen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().erntenButton(getSeleked_fromList()));
         geißen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().geißenButton(getSeleked_fromList()));
         saeen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().saeenButton(getSeleked_fromList()));
         alles.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().allesButton(getSeleked_fromList()));
         button_neu.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().neuButton(name.getText(),Util.StringToPflanzenart(arten.getSelectionModel().getSelectedItem().toString()),Integer.parseInt(anz.getText())));
+        loeschen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().loeschenButton(getSeleked_fromList()));
         gridPane.add(ernen,3,2);
         gridPane.add(geißen,4,2);
         gridPane.add(saeen,5,2);
         gridPane.add(alles,6,2);
+        gridPane.add(loeschen,7,2);
 
         return stackPane;
     }
@@ -183,10 +194,17 @@ public class TabbedPane {
         gridPane.setHgap(10);
         gridPane.setPadding(new Insets(0,10,0,10));
         border.setCenter(gridPane);
+        TabPane konsoloe = new TabPane();
+        konsoloe.setMaxHeight(300);
+        border.setBottom(konsoloe);
 
         ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            Tab tab = new Tab(newValue);
+            tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
+            konsoloe.getTabs().add(tab); });
         list.setPrefSize(170,200);
         list.setMaxSize(170,300);
         border.setLeft(list);
@@ -235,8 +253,8 @@ public class TabbedPane {
                 if (feld.getGehoertZuNutzer().equals(Nutzer.getAktuellerNutzer().getName())) {
                     felder_des_Nutzers.add(feld);
                     anzFelderDesNutzers++;
-                    if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
-                        davonWeizen++;
+                    if (feld.getPflanzenArten() == PflanzenArten.Mais) {
+                        davonMeis++;
                     }
                     if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
                         davonWeizen++;
@@ -256,7 +274,45 @@ public class TabbedPane {
         return ausgewaehlt;
     }
 
+    public static Map getVorrausichlicheErnte(){
+        HashMap<String,Integer> vorrausichlicheErnte = new HashMap<>();
+        for (Feld feld : getFelder_des_Nutzers()) {
+            int anzVorrausichtlicheErnte=0;
+            for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+                if (pflanze.getHoehe()+pflanze.getPflanzenArten().getWachstum()*1.5>=pflanze.getPflanzenArten().getErntehöhe()){
+                    anzVorrausichtlicheErnte++;
+                }
+            }
+            vorrausichlicheErnte.put(feld.getName(),anzVorrausichtlicheErnte);
+        }
+        return vorrausichlicheErnte;
+    }
+
+    public static Map getDruchschnitlicheHoehe(){
+        HashMap<String,Double> durchschnittlicheHoehe = new HashMap<>();
+        for (Feld feld : getFelder_des_Nutzers()) {
+            double gesamtHoehe =0;
+            for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+                gesamtHoehe += pflanze.getHoehe();
+            }
+            durchschnittlicheHoehe.put(feld.getName(),gesamtHoehe/feld.getPflanzenliste().size());
+        }
+        return durchschnittlicheHoehe;
+    }
+
     public static ArrayList<Feld> getFelder_des_Nutzers() {
         return felder_des_Nutzers;
+    }
+
+    public static int getAnzFelderDesNutzers() {
+        return anzFelderDesNutzers;
+    }
+
+    public static int getDavonMeis() {
+        return davonMeis;
+    }
+
+    public static int getDavonWeizen() {
+        return davonWeizen;
     }
 }

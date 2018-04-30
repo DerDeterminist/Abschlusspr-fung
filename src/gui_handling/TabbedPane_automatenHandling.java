@@ -58,10 +58,15 @@ public class TabbedPane_automatenHandling {
     }
     public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
 
-
-
         Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.getAktuellerNutzer().getName());
     }
+
+    public void loeschenButton(ArrayList<String> ausgewaelt) {
+        for (String s : ausgewaelt) {
+            LesenUndSchreibenLernen.getFelder_inhalt().remove(Util.getFeldByName(s));
+        }
+    }
+
 
     public static TableView tabelleErstellen(String feldname){
         TableView table = new TableView();
@@ -77,4 +82,6 @@ public class TabbedPane_automatenHandling {
         table.setItems(Util.getFeldpflanzenObservable(Util.getFeldByName(feldname)));
         return table;
     }
+
+
 }

@@ -26,6 +26,7 @@ public class Login {
     public Label hinweis = new Label("");
 
     static Stage primaryStage;
+
     public void login(Stage primaryStage){
         this.primaryStage = primaryStage;
 
@@ -73,12 +74,15 @@ public class Login {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
     public void setHinweis(Label hinweis) {
         this.hinweis = hinweis;
+    }
+
+    public Label getHinweis() {
+        return hinweis;
     }
 }
