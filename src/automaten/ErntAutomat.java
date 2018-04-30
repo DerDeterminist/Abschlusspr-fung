@@ -17,7 +17,7 @@ public class ErntAutomat implements Automaten{
             public void run() {
                 ArrayList<FeldPflanzen> zuErnten = new ArrayList<>();
                 for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                    if (pflanze.getHoehe()>pflanze.getPflanzenArten().getWachstum()){
+                    if (pflanze.getHoehe()>pflanze.getPflanzenArten().getErntehöhe()){
                         zuErnten.add(pflanze);
                     }
                 }

@@ -58,11 +58,11 @@ public class TabbedPane_automatenHandling {
     }
     public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
 
-        Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.getAktuellerNutzer().getName());
-        feld.feldEinrichten();
-        LesenUndSchreibenLernen.getFelder_inhalt().add(feld);
 
+
+        Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.getAktuellerNutzer().getName());
     }
+
     public static TableView tabelleErstellen(String feldname){
         TableView table = new TableView();
         table.setPrefHeight(250);

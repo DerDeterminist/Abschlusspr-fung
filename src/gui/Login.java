@@ -23,7 +23,7 @@ import java.net.MalformedURLException;
 
 public class Login {
 
-    public static String hinweistext = "";
+    public Label hinweis = new Label("");
 
     static Stage primaryStage;
     public void login(Stage primaryStage){
@@ -33,7 +33,7 @@ public class Login {
         primaryStage.setTitle("Login");
         primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
 
-        Label hinweis = new Label(hinweistext);
+
 
 //        Label accPw = new Label("Passwort");
 //        Label accName = new Label("Benutzername");
@@ -78,7 +78,7 @@ public class Login {
         return primaryStage;
     }
 
-    public void setHinweistext(String hinweistext) {
-        Login.hinweistext = hinweistext;
+    public void setHinweis(Label hinweis) {
+        this.hinweis = hinweis;
     }
 }

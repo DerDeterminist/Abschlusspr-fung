@@ -5,13 +5,13 @@ public class Weizen extends FeldPflanzen {
     public Weizen(){
         name = "Weizen";
         hoehe = -10d;
-        pflanzenArten = PflanzenArten.Mais;
+        pflanzenArten = PflanzenArten.Weizen;
     }
 
     public Weizen(double hoehe) {
         name = "Weizen";
         this.hoehe = hoehe;
-        pflanzenArten = PflanzenArten.Mais;
+        pflanzenArten = PflanzenArten.Weizen;
     }
     public Weizen(String name,double hoehe,PflanzenArten pflanzenArten){
         this.name = name;

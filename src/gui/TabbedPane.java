@@ -93,13 +93,14 @@ public class TabbedPane {
             tab.setContent(TabbedPane_automatenHandling.tabelleErstellen(newValue));
             konsoloe.getTabs().add(tab); });
         list.setPrefSize(170,200);
+        list.setMaxSize(170,300);
         border.setLeft(list);
         Label ueberschrift = new Label("Übersicht");
         border.setTop(ueberschrift);
 
         Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.getAktuellerNutzer().getName()+": "+anzFelderDesNutzers
                                                 +"\ndavon Meisfelder: "+davonMeis
-                                                +"\ndavon Weizenfelder; "+davonWeizen);
+                                                +"\ndavon Weizenfelder: "+davonWeizen);
         gridPane.add(kurzeInfoUeberFelder,0,0);
 
         return stackPane;
@@ -125,6 +126,7 @@ public class TabbedPane {
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.setPrefSize(170,200);
+        list.setMaxSize(170,300);
         border.setLeft(list);
         Label ueberschrift = new Label("Felder                          Automaten");
         ueberschrift.setFont(new Font("Arial",20));
@@ -186,6 +188,7 @@ public class TabbedPane {
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.setPrefSize(170,200);
+        list.setMaxSize(170,300);
         border.setLeft(list);
         Label ueberschrift = new Label("Felder");
         border.setTop(ueberschrift);

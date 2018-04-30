@@ -22,7 +22,7 @@ public class Feld {
     public Feld(String name,PflanzenArten pflanzenArten){
         this.pflanzenArten = pflanzenArten;
         this.name = name;
-        feldEinrichten();
+        feldEinrichten(this);
     }
 
     public Feld(String name,PflanzenArten pflanzenArten,int pflanzenAnz,String gehoertZuNutzer){
@@ -30,7 +30,7 @@ public class Feld {
         this.name = name;
         this.pflanzenAnz = pflanzenAnz;
         this.gehoertZuNutzer = gehoertZuNutzer;
-        feldEinrichten();
+        feldEinrichten(this);
     }
 
     public Feld(String name,PflanzenArten pflanzenArten,ArrayList<FeldPflanzen> pflanzenliste,int pflanzenAnz,String gehoertZuNutzer){
@@ -41,18 +41,18 @@ public class Feld {
         this.gehoertZuNutzer = gehoertZuNutzer;
     }
 
-    public void feldEinrichten(){
-        if (pflanzenArten == PflanzenArten.Weizen) {
-            for (int i = 0; i < pflanzenAnz; i++) {
-                pflanzenliste.add(new Weizen());
+    public void feldEinrichten(Feld feld){
+        if (feld.pflanzenArten == PflanzenArten.Weizen) {
+            for (int i = 0; i < this.pflanzenAnz; i++) {
+                feld.pflanzenliste.add(new Weizen());
             }
         }
-        if (pflanzenArten == PflanzenArten.Mais) {
-            for (int i = 0; i < pflanzenAnz; i++) {
-                pflanzenliste.add(new Mais());
+        if (feld.pflanzenArten == PflanzenArten.Mais) {
+            for (int i = 0; i < this.pflanzenAnz; i++) {
+                feld.pflanzenliste.add(new Mais());
             }
         }
-        LesenUndSchreibenLernen.getFelder_inhalt().add(this);
+        LesenUndSchreibenLernen.getFelder_inhalt().add(feld);
     }
 
 

@@ -9,5 +9,4 @@ import java.util.List;
 public interface Automaten {
 
     void arbeiten(Feld feld);
-
 }
