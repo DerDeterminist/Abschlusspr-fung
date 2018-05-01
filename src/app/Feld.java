@@ -41,6 +41,7 @@ public class Feld {
         this.gehoertZuNutzer = gehoertZuNutzer;
     }
 
+    // fügt Pflanzen dem Feld hinzu und schreibt Feld in die Liste aller Felder
     public void feldEinrichten(Feld feld){
         if (feld.pflanzenArten == PflanzenArten.Weizen) {
             for (int i = 0; i < this.pflanzenAnz; i++) {

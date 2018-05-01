@@ -1,6 +1,5 @@
 package gui;
 
-import app.Feld;
 import app.Util;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -13,7 +12,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 import pflanzen.FeldPflanzen;
 
@@ -34,7 +32,7 @@ public class BarChart_PflanzenHoehe{
         yAxis.setTickLabelFont(Util.ueberschriftFont);
         yAxis.setTickLabelFill(Color.BLACK);
 
-
+        // Daten für alle Felder des angemeldeten Nutzers
         for (FeldPflanzen pflanze : Util.getFeldByName(name).getPflanzenliste()) {
 
             XYChart.Series series = new XYChart.Series();
@@ -47,6 +45,7 @@ public class BarChart_PflanzenHoehe{
         bc.setLegendVisible(false);
         bc.setLayoutX(23);
 
+        // macht BarChart flexibel
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(
                 new KeyFrame(Duration.millis(500),

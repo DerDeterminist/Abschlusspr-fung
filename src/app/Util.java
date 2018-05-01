@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public class Util {
 
+    // Schriftarten
     public static Font ueberschriftFont = new Font("Arial",18);
     public static Font textFont = new Font("Arial",15);
 
+    // Feldname -> Feld
     public static Feld getFeldByName(String name) {
         Feld dasEineFeld = null;
         for (Feld feld : LesenUndSchreibenLernen.getFelder_inhalt()) {
@@ -26,30 +28,24 @@ public class Util {
         return dasEineFeld;
     }
 
+    // Observable PflanzenListe
     public static ObservableList<FeldPflanzen> getFeldpflanzenObservable(Feld feld){
         ObservableList<FeldPflanzen> rueckgabe = FXCollections.observableArrayList();
         rueckgabe.addAll(feld.getPflanzenliste());
         return rueckgabe;
     }
+    // Observable PflanzenartenListe
     public static ObservableList<String> getPflanzenartenObservable() {
         ObservableList<String> options = FXCollections.observableArrayList();
         options.addAll(PflanzenArten.Mais.name(),PflanzenArten.Weizen.name());
         return options;
     }
+    // Pfanzenarart Name -> Pflanzenart
     public static PflanzenArten StringToPflanzenart(String name){
         if (name.equals(PflanzenArten.Mais.name())){
            return PflanzenArten.Mais;
         }else {
             return PflanzenArten.Weizen;
         }
-    }
-
-    //idee um gui upzudaten
-
-    public static void run(Runnable treatment) {
-        if(treatment == null) throw new IllegalArgumentException("The treatment to perform can not be null");
-
-        if(Platform.isFxApplicationThread()) treatment.run();
-        else Platform.runLater(treatment);
     }
 }

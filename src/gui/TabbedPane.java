@@ -6,12 +6,9 @@ import app.Util;
 import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
 import gui_handling.TabbedPane_automatenHandling;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,8 +24,6 @@ import pflanzen.PflanzenArten;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
@@ -50,6 +45,7 @@ public class TabbedPane {
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(UNAVAILABLE);
 
+        // tabPane haubtSene
         Tab tab_uebersicht = new Tab();
         tab_uebersicht.setText("Übersicht");
         tab_uebersicht.setContent(uebersicht_Contet());
@@ -100,7 +96,7 @@ public class TabbedPane {
         Label ueberschrift = new Label("Übersicht");
         border.setTop(ueberschrift);
 
-        Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.getAktuellerNutzer().getName()+": "+anzFelderDesNutzers);
+        Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.aktuellerNutzer.getName()+": "+anzFelderDesNutzers);
         gridPane.add(kurzeInfoUeberFelder,0,0);
         gridPane.add(new Pie_Chart_Pflanzenarten().pieChart_pflanzenarten(),0,1);
 
@@ -198,6 +194,8 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
+        gridPane.getChildren().add(new BarChart_ErwarteErnte().BarChart_ErwarteErnte());
+
         ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -250,7 +248,7 @@ public class TabbedPane {
 
         try {
             for (Feld feld : LesenUndSchreibenLernen.getFelder_inhalt()) {
-                if (feld.getGehoertZuNutzer().equals(Nutzer.getAktuellerNutzer().getName())) {
+                if (feld.getGehoertZuNutzer().equals(Nutzer.aktuellerNutzer.getName())) {
                     felder_des_Nutzers.add(feld);
                     anzFelderDesNutzers++;
                     if (feld.getPflanzenArten() == PflanzenArten.Mais) {
@@ -274,18 +272,15 @@ public class TabbedPane {
         return ausgewaehlt;
     }
 
-    public static Map getVorrausichlicheErnte(){
-        HashMap<String,Integer> vorrausichlicheErnte = new HashMap<>();
-        for (Feld feld : getFelder_des_Nutzers()) {
-            int anzVorrausichtlicheErnte=0;
-            for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                if (pflanze.getHoehe()+pflanze.getPflanzenArten().getWachstum()*1.5>=pflanze.getPflanzenArten().getErntehöhe()){
-                    anzVorrausichtlicheErnte++;
-                }
+    public static Integer getVorrausichlicheErnte(Feld feld){
+
+        int anzVorrausichtlicheErnte=0;
+        for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+            if (pflanze.getHoehe()+pflanze.getPflanzenArten().getWachstum()*1.5>=pflanze.getPflanzenArten().getErntehöhe()){
+                anzVorrausichtlicheErnte++;
             }
-            vorrausichlicheErnte.put(feld.getName(),anzVorrausichtlicheErnte);
         }
-        return vorrausichlicheErnte;
+        return anzVorrausichtlicheErnte;
     }
 
     public static ArrayList getDruchschnitlicheHoehe(){

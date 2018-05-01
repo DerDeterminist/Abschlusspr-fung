@@ -5,9 +5,6 @@ import app.Nutzer;
 import dao.LesenUndSchreibenLernen;
 import gui.Login;
 import gui.TabbedPane;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.control.Label;
 import pflanzen.PflanzenArten;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class LoginHandling {
             }
             if (!nutzerSchonVorhanden) {
                 LesenUndSchreibenLernen.getNutzer_inhalt().add(neuerNutzer);
-                neuerNutzer.setAktuellerNutzer(neuerNutzer);
+                Nutzer.aktuellerNutzer=neuerNutzer;
                 new Feld("Weizenfeld "+neuerNutzer.getName(), PflanzenArten.Weizen,50,neuerNutzer.getName());
                 new Feld("Maisfeld "+neuerNutzer.getName(),PflanzenArten.Mais,50,neuerNutzer.getName());
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
@@ -49,7 +46,7 @@ public class LoginHandling {
         for (Nutzer nutzer : alleNutzer) {
             if (nutzer.getName().equals(name) && nutzer.getPasswort().equals(passwort)) {
                 System.out.println("user überprüfung erfolgreich");
-                Nutzer.setAktuellerNutzer(nutzer);
+                Nutzer.aktuellerNutzer=nutzer;
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             }else {
                 update.updateTitle("Falsche Anmeldedaten");

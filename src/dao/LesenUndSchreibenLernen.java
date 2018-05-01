@@ -15,7 +15,6 @@ public class LesenUndSchreibenLernen {
     static ArrayList<Nutzer> Nutzer_inhalt = new ArrayList<>();
     static ArrayList<Feld> Felder_inhalt = new ArrayList<>();
 
-
     public static void felderSchreiben(){
 
         PrintWriter pw = null;

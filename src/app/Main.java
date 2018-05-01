@@ -9,6 +9,7 @@ public class Main extends Application{
 
     public static void main(String[] args) {
 
+        // Daten aus CSV einlesen
         LesenUndSchreibenLernen.felderLesen();
         LesenUndSchreibenLernen.nutzerLesen();
 

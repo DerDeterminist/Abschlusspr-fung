@@ -11,6 +11,7 @@ public class ErntAutomat implements Automaten{
         erten(feld);
     }
 
+    // remove Pflanze, wenn Pflanze größer als im Enum
     private void erten(Feld feld){
         new Thread(new Runnable() {
             @Override

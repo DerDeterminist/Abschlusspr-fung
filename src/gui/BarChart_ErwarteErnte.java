@@ -14,19 +14,14 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import pflanzen.FeldPflanzen;
-
-import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BarChart_ErwarteErnte {
 
-    public Node BarChart_ErwarteErnte(){
+    public Node BarChart_ErwarteErnte() {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc =
-                new BarChart<String,Number>(xAxis,yAxis);
+        final BarChart<String, Number> bc =
+                new BarChart<String, Number>(xAxis, yAxis);
         xAxis.setLabel("Felder");
         xAxis.setTickLabelFont(Util.ueberschriftFont);
         xAxis.setTickLabelFill(Color.BLACK);
@@ -35,28 +30,25 @@ public class BarChart_ErwarteErnte {
         yAxis.setTickLabelFont(Util.ueberschriftFont);
         yAxis.setTickLabelFill(Color.BLACK);
 
-//         TabbedPane.getDruchschnitlicheHoehe();
-//        for (String key : (HashMap)TabbedPane.getDruchschnitlicheHoehe()) {
-//
-//        }
-//
-//        for (KeyEvent feld : ) {
-//
-//            XYChart.Series series = new XYChart.Series();
-//            series.getData().add(new XYChart.Data(pflanze.getName(),pflanze.getHoehe()));
-//            bc.getData().add(series);
-//
-//        }
+        for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
+
+            XYChart.Series series = new XYChart.Series();
+            series.getData().add(new XYChart.Data(feld.getName(), TabbedPane.getVorrausichlicheErnte(feld)));
+            bc.getData().add(series);
+
+        }
         bc.setBarGap(8);
         bc.setCategoryGap(8);
         bc.setLegendVisible(false);
         bc.setLayoutX(23);
+        bc.setPrefSize(335,300);
 
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(
                 new KeyFrame(Duration.millis(500),
                         new EventHandler<ActionEvent>() {
-                            @Override public void handle(ActionEvent actionEvent) {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
                                 for (XYChart.Series<String, Number> series : bc.getData()) {
                                     for (XYChart.Data<String, Number> data : series.getData()) {
                                         //todo richtige daten
@@ -72,5 +64,4 @@ public class BarChart_ErwarteErnte {
 
         return bc;
     }
-
 }

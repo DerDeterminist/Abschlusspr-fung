@@ -8,10 +8,6 @@ import automaten.GießAutomat;
 import automaten.Saenautomat;
 import dao.LesenUndSchreibenLernen;
 import gui.TabbedPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import pflanzen.FeldPflanzen;
 import pflanzen.PflanzenArten;
 
 import java.util.ArrayList;
@@ -58,7 +54,7 @@ public class TabbedPane_automatenHandling {
     }
     public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
 
-        Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.getAktuellerNutzer().getName());
+        Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.aktuellerNutzer.getName());
     }
 
     public void loeschenButton(ArrayList<String> ausgewaelt) {

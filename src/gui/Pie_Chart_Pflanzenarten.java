@@ -24,6 +24,7 @@ public class Pie_Chart_Pflanzenarten  {
         pieChart_Pflanzenarten.setLabelsVisible(true);
         pieChart_Pflanzenarten.setLegendSide(Side.LEFT);
 
+        // todo zeigt den Prozentwert beim howen
         Label caption = new Label("");
         for (PieChart.Data data : pieChartData) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET,

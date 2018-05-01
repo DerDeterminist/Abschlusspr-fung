@@ -1,13 +1,10 @@
 package automaten;
 
 import app.Feld;
-import pflanzen.FeldPflanzen;
 import pflanzen.Mais;
 import pflanzen.PflanzenArten;
 import pflanzen.Weizen;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Saenautomat implements Automaten{
 
@@ -16,6 +13,7 @@ public class Saenautomat implements Automaten{
         saeen(feld);
     }
 
+    // Pflanzen hinzufügen, wenn weniger als Wert im Feld
     private void saeen(Feld feld){
         new Thread(new Runnable() {
             @Override

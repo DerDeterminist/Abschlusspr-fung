@@ -13,6 +13,7 @@ public class GießAutomat implements Automaten{
         gießen(feld);
     }
 
+    // PflanzenHöhe +~ 1,5* Enum Wert
     private void gießen(Feld feld) {
         new Thread(new Runnable() {
             @Override
