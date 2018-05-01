@@ -20,12 +20,16 @@ public class GießAutomat implements Automaten{
             public void run() {
                 if (feld.getPflanzenArten() == PflanzenArten.Mais) {
                     for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                        pflanze.setHoehe(pflanze.getHoehe() + PflanzenArten.Mais.getWachstum()+PflanzenArten.Mais.getWachstum()*Math.random());
+                        pflanze.setHoehe(pflanze.getHoehe() + (PflanzenArten.Mais.getWachstum()+PflanzenArten.Mais.getWachstum()*Math.random()));
+                        // nur zum test
+                        pflanze.setHoehe(15);
                     }
                 }
                 if (feld.getPflanzenArten() == PflanzenArten.Weizen) {
                     for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
-                        pflanze.setHoehe(pflanze.getHoehe() + PflanzenArten.Weizen.getWachstum()+PflanzenArten.Weizen.getWachstum()*Math.random());
+                        pflanze.setHoehe(pflanze.getHoehe() + (PflanzenArten.Weizen.getWachstum()+PflanzenArten.Weizen.getWachstum()*Math.random()));
+                        //  nur zum test
+                        pflanze.setHoehe(15);
                     }
                 }
             }
