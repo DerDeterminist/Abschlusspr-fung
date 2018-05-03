@@ -5,20 +5,18 @@ import app.Nutzer;
 import dao.LesenUndSchreibenLernen;
 import gui.Login;
 import gui.TabbedPane;
+import javafx.scene.control.Label;
 import pflanzen.PflanzenArten;
 
 import java.util.ArrayList;
 
 public class LoginHandling {
-    Updates update = new Updates();
-    Bindings bindings = new Bindings();
 
-
-    public void neuerNutzer(String name, String passwort) {
+    public void neuerNutzer(String name, String passwort,Label hinweis) {
         boolean nutzerSchonVorhanden = false;
 
 
-        if (name != null) {
+        if (!name.equals("")) {
             Nutzer neuerNutzer = new Nutzer(name, passwort);
             for (Nutzer nutzer : (ArrayList<Nutzer>) LesenUndSchreibenLernen.nutzerLesen()) {
                 if (nutzer.getName() == neuerNutzer.getName()) {
@@ -32,24 +30,20 @@ public class LoginHandling {
                 new Feld("Maisfeld "+neuerNutzer.getName(),PflanzenArten.Mais,50,neuerNutzer.getName());
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             } else {
-                update.updateTitle("Dieser Benutzername ist schon vergeben");
-//                JOptionPane.showMessageDialog(null,"Dieser Benutzername ist schon vergeben");
+                hinweis.setText("Dieser Benutzername ist schon vergeben");
             }
         } else {
-            //todo warum wid der text nicht akutalisirt?
-            update.updateTitle("Bitte geben Sie einen Benutzernamen ein");
-//            JOptionPane.showMessageDialog(null,"Bitte geben Sie einen Benutzernamen ein");
+            hinweis.setText("Bitte geben Sie einen Benutzernamen ein");
         }
     }
 
-    public void loginHandling(ArrayList<Nutzer> alleNutzer, String name, String passwort) {
+    public void loginHandling(ArrayList<Nutzer> alleNutzer, String name, String passwort, Label hinweis) {
         for (Nutzer nutzer : alleNutzer) {
             if (nutzer.getName().equals(name) && nutzer.getPasswort().equals(passwort)) {
-                System.out.println("user überprüfung erfolgreich");
                 Nutzer.aktuellerNutzer=nutzer;
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             }else {
-                update.updateTitle("Falsche Anmeldedaten");
+                hinweis.setText("Falsche Anmeldedaten");
             }
         }
     }

@@ -11,10 +11,11 @@ import gui.TabbedPane;
 import pflanzen.PflanzenArten;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TabbedPane_automatenHandling {
 
-    public void erntenButton(ArrayList<String> ausgewaelt){
+    public void erntenButton(List<String> ausgewaelt){
         ErntAutomat erntAutomat = new ErntAutomat();
         for (Feld feld  : TabbedPane.getFelder_des_Nutzers()) {
             if (ausgewaelt.contains(feld.getName())){
@@ -22,7 +23,7 @@ public class TabbedPane_automatenHandling {
             }
         }
     }
-    public void geißenButton(ArrayList<String> ausgewaelt){
+    public void geißenButton(List<String> ausgewaelt){
         GießAutomat gießAutomat = new GießAutomat();
         for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
             if (ausgewaelt.contains(feld.getName())){
@@ -30,7 +31,7 @@ public class TabbedPane_automatenHandling {
             }
         }
     }
-    public void saeenButton(ArrayList<String> ausgewaelt){
+    public void saeenButton(List<String> ausgewaelt){
         Saenautomat saenautomat = new Saenautomat();
         for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
             if (ausgewaelt.contains(feld.getName())){
@@ -38,7 +39,7 @@ public class TabbedPane_automatenHandling {
             }
         }
     }
-    public void allesButton(ArrayList<String> ausgewaelt){
+    public void allesButton(List<String> ausgewaelt){
         Saenautomat saenautomat = new Saenautomat();
         GießAutomat gießAutomat = new GießAutomat();
         ErntAutomat erntAutomat = new ErntAutomat();
@@ -55,9 +56,10 @@ public class TabbedPane_automatenHandling {
     public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
 
         Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.aktuellerNutzer.getName());
+        TabbedPane.felder_des_Nutzers.add(feld);
     }
 
-    public void loeschenButton(ArrayList<String> ausgewaelt) {
+    public void loeschenButton(List<String> ausgewaelt) {
         for (String s : ausgewaelt) {
             LesenUndSchreibenLernen.getFelder_inhalt().remove(Util.getFeldByName(s));
         }

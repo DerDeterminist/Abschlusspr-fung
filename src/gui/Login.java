@@ -35,17 +35,14 @@ public class Login {
         primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
 
 
-
-//        Label accPw = new Label("Passwort");
-//        Label accName = new Label("Benutzername");
         PasswordField accPwIn = new PasswordField();
         accPwIn.setPromptText("Passwort");
         TextField accNameIn = new TextField();
         accNameIn.setPromptText("Benutzername");
         Button _newAcc = new Button("neues Konto");
-        _newAcc.addEventHandler(ActionEvent.ACTION,(e) ->  new LoginHandling().neuerNutzer(accNameIn.getText(),accPwIn.getText()));
+        _newAcc.addEventHandler(ActionEvent.ACTION,(e) ->  new LoginHandling().neuerNutzer(accNameIn.getText(),accPwIn.getText(),hinweis));
         Button login = new Button("login");
-        login.addEventHandler(ActionEvent.ACTION,(e)-> new LoginHandling().loginHandling(LesenUndSchreibenLernen.getNutzer_inhalt(),accNameIn.getText(),accPwIn.getText()));
+        login.addEventHandler(ActionEvent.ACTION, (e)-> new LoginHandling().loginHandling(LesenUndSchreibenLernen.getNutzer_inhalt(),accNameIn.getText(),accPwIn.getText(),hinweis));
 
         StackPane p1 = new StackPane();
         ImageView background = null;
@@ -60,8 +57,6 @@ public class Login {
         p1_2.setHgap(10);
         p1_2.setVgap(10);
         p1_2.setPadding(new Insets(0,10,0,10));
-//        p1_2.add(accName,4,2);
-//        p1_2.add(accPw,5,2);
         p1_2.add(accNameIn,4,3);
         p1_2.add(accPwIn,5,3);
         p1_2.add(_newAcc,4,4);
@@ -76,10 +71,6 @@ public class Login {
     }
     public static Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public void setHinweis(Label hinweis) {
-        this.hinweis = hinweis;
     }
 
     public Label getHinweis() {

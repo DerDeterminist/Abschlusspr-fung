@@ -7,6 +7,7 @@ import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
 import gui_handling.TabbedPane_automatenHandling;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -24,13 +25,16 @@ import pflanzen.PflanzenArten;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
 public class TabbedPane {
     ListView<String> list = new ListView<String>();
 
-    static ArrayList<Feld> felder_des_Nutzers = new ArrayList<>();
+    public static ArrayList<Feld> felder_des_Nutzers = new ArrayList<>();
+    static ObservableList<String> selektierteFelderDesNutzer = FXCollections.observableArrayList(new ArrayList<>());
 
     static int anzFelderDesNutzers = 0;
     static int davonMeis = 0;
@@ -83,7 +87,7 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        ListView<String> list = new ListView<String>();
+        //ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -122,15 +126,19 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        ListView<String> list = new ListView<String>();
+        //ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        {
             Tab tab = new Tab(newValue);
             tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
-            konsoloe.getTabs().add(tab); });
+            konsoloe.getTabs().add(tab);
+            selektierteFelderDesNutzer = list.getSelectionModel().getSelectedItems();
+        });
         list.setPrefSize(170,200);
         list.setMaxSize(170,300);
+
         border.setLeft(list);
         Label ueberschrift = new Label("Felder                          Automaten");
         ueberschrift.setFont(new Font("Arial",20));
@@ -164,7 +172,11 @@ public class TabbedPane {
         geißen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().geißenButton(getSeleked_fromList()));
         saeen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().saeenButton(getSeleked_fromList()));
         alles.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().allesButton(getSeleked_fromList()));
-        button_neu.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().neuButton(name.getText(),Util.StringToPflanzenart(arten.getSelectionModel().getSelectedItem().toString()),Integer.parseInt(anz.getText())));
+        button_neu.addEventHandler(ActionEvent.ACTION,(e)->
+        {
+           new TabbedPane_automatenHandling().neuButton(name.getText(),Util.StringToPflanzenart(arten.getSelectionModel().getSelectedItem().toString()),Integer.parseInt(anz.getText()));
+           liste_FelderListe_aneigen();
+        });
         loeschen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().loeschenButton(getSeleked_fromList()));
         gridPane.add(ernen,3,2);
         gridPane.add(geißen,4,2);
@@ -196,7 +208,7 @@ public class TabbedPane {
 
         gridPane.getChildren().add(new BarChart_ErwarteErnte().BarChart_ErwarteErnte());
 
-        ListView<String> list = new ListView<String>();
+        //ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -264,12 +276,13 @@ public class TabbedPane {
         }
     }
 
-    public ArrayList<String> getSeleked_fromList(){
-        ArrayList<String> ausgewaehlt = new ArrayList<>();
-        for (String item : list.getSelectionModel().getSelectedItems()) {
-            ausgewaehlt.add(item);
-        }
-        return ausgewaehlt;
+    public List<String> getSeleked_fromList(){
+        //ArrayList<String> ausgewaehlt = new ArrayList<>();
+        //for (String item : list.getSelectionModel().getSelectedItems()) {
+        //    ausgewaehlt.add(item);
+        //}
+        //return ausgewaehlt;
+       return selektierteFelderDesNutzer;
     }
 
     public static Integer getVorrausichlicheErnte(Feld feld){

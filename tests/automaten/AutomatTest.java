@@ -18,8 +18,6 @@ public class AutomatTest {
 
         assertTrue(feld.getPflanzenliste().size()==feld.getPflanzenAnz());
 
-//      feld.getPflanzenliste().get(0).setHoehe(0);
-//        assertTrue(feld.getPflanzenliste().get(0).getHoehe()==-0);
 
         for (int i=0;i<51;i++){
             gießAutomat.arbeiten(feld);
@@ -28,7 +26,7 @@ public class AutomatTest {
 
 
         for (FeldPflanzen pflanzen : feld.getPflanzenliste()) {
-            assertTrue(pflanzen.getHoehe()==15);
+            assertTrue(pflanzen.getHoehe()>100);
         }
 
         erntAutomat.arbeiten(feld);

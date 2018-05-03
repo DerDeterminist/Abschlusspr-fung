@@ -16,54 +16,61 @@ import javafx.util.Duration;
 import pflanzen.FeldPflanzen;
 
 
+public class BarChart_PflanzenHoehe
+{
 
-public class BarChart_PflanzenHoehe{
+   public Node BarCartPfanenHoehe(String name)
+   {
+      final CategoryAxis xAxis = new CategoryAxis();
+      final NumberAxis yAxis = new NumberAxis();
+      final BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
+      xAxis.setLabel("Pflanzen");
+      xAxis.setTickLabelFont(Util.ueberschriftFont);
+      xAxis.setTickLabelFill(Color.BLACK);
+      //todo label yAxis übernimmt die werte nicht
+      yAxis.setLabel("Höhe");
+      yAxis.setTickLabelFont(Util.ueberschriftFont);
+      yAxis.setTickLabelFill(Color.BLACK);
 
-    public Node BarCartPfanenHoehe(String name){
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc =
-                new BarChart<String,Number>(xAxis,yAxis);
-        xAxis.setLabel("Pflanzen");
-        xAxis.setTickLabelFont(Util.ueberschriftFont);
-        xAxis.setTickLabelFill(Color.BLACK);
-        //todo label yAxis übernimmt die werte nicht
-        yAxis.setLabel("Höhe");
-        yAxis.setTickLabelFont(Util.ueberschriftFont);
-        yAxis.setTickLabelFill(Color.BLACK);
+      // Daten für alle Felder des angemeldeten Nutzers
+      for( FeldPflanzen pflanze : Util.getFeldByName(name).getPflanzenliste() )
+      {
 
-        // Daten für alle Felder des angemeldeten Nutzers
-        for (FeldPflanzen pflanze : Util.getFeldByName(name).getPflanzenliste()) {
+         XYChart.Series series = new XYChart.Series();
+         series.getData().add(new XYChart.Data(pflanze.getName(), pflanze.getHoehe()));
+         bc.getData().add(series);
 
-            XYChart.Series series = new XYChart.Series();
-            series.getData().add(new XYChart.Data(pflanze.getName(),pflanze.getHoehe()));
-            bc.getData().add(series);
+      }
+      bc.setBarGap(8);
+      bc.setCategoryGap(8);
+      bc.setLegendVisible(false);
+      bc.setLayoutX(23);
 
-        }
-        bc.setBarGap(8);
-        bc.setCategoryGap(8);
-        bc.setLegendVisible(false);
-        bc.setLayoutX(23);
-
-        // macht BarChart flexibel
-        Timeline tl = new Timeline();
-        tl.getKeyFrames().add(
-                new KeyFrame(Duration.millis(500),
-                        new EventHandler<ActionEvent>() {
-                            @Override public void handle(ActionEvent actionEvent) {
-                                for (XYChart.Series<String, Number> series : bc.getData()) {
-                                    for (XYChart.Data<String, Number> data : series.getData()) {
-                                        //todo richtige daten
-                                        data.setYValue(Math.random() * 100);
-                                    }
-                                }
-                            }
+      // macht BarChart flexibel
+      Timeline tl = new Timeline();
+      tl.getKeyFrames().add(
+            new KeyFrame(
+                  Duration.millis(500),
+                  new EventHandler<ActionEvent>()
+                  {
+                     @Override
+                     public void handle(ActionEvent actionEvent)
+                     {
+                        for( XYChart.Series<String, Number> series : bc.getData() )
+                        {
+                           for( XYChart.Data<String, Number> data : series.getData() )
+                           {
+                              //todo richtige daten
+                              data.setYValue(Math.random() * 100);
+                           }
                         }
-                ));
-        tl.setCycleCount(Animation.INDEFINITE);
-        tl.setAutoReverse(true);
-        tl.play();
+                     }
+                  }
+            ));
+      tl.setCycleCount(Animation.INDEFINITE);
+      tl.setAutoReverse(true);
+      tl.play();
 
-        return bc;
-    }
+      return bc;
+   }
 }
