@@ -1,5 +1,6 @@
 package gui;
 
+import app.Util;
 import gui_handling.LoginHandling;
 import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -29,6 +31,8 @@ public class Login {
 
     public void login(Stage primaryStage){
         this.primaryStage = primaryStage;
+        hinweis.setTextFill(Color.RED);
+        hinweis.setFont(Util.textFont);
 
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");

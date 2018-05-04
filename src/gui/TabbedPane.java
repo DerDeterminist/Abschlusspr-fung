@@ -87,7 +87,7 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        //ListView<String> list = new ListView<String>();
+        ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -101,6 +101,7 @@ public class TabbedPane {
         border.setTop(ueberschrift);
 
         Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.aktuellerNutzer.getName()+": "+anzFelderDesNutzers);
+        kurzeInfoUeberFelder.setFont(Util.ueberschriftFont);
         gridPane.add(kurzeInfoUeberFelder,0,0);
         gridPane.add(new Pie_Chart_Pflanzenarten().pieChart_pflanzenarten(),0,1);
 
@@ -126,7 +127,7 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        //ListView<String> list = new ListView<String>();
+        ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
@@ -208,7 +209,7 @@ public class TabbedPane {
 
         gridPane.getChildren().add(new BarChart_ErwarteErnte().BarChart_ErwarteErnte());
 
-        //ListView<String> list = new ListView<String>();
+        ListView<String> list = new ListView<String>();
         list.setItems(liste_FelderListe_aneigen());
         list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

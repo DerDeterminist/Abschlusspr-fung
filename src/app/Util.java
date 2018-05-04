@@ -4,6 +4,7 @@ import dao.LesenUndSchreibenLernen;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.omg.CORBA.MARSHAL;
 import pflanzen.FeldPflanzen;
