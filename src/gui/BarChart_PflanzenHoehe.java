@@ -55,12 +55,19 @@ public class BarChart_PflanzenHoehe
                      public void handle(ActionEvent actionEvent)
                      {
                         int couter = 0;
-                        for( XYChart.Series<String, Number> series : bc.getData() )
-                        {
-                           for( XYChart.Data<String, Number> data : series.getData() )
-                           {
-                              data.setYValue(Util.getFeldByName(name).getPflanzenliste().get(couter++).getHoehe());
+                        int remove = 0;
+                        for( XYChart.Series<String, Number> series : bc.getData() ) {
+                           for( XYChart.Data<String, Number> data : series.getData() ) {
+                              if (couter<=Util.getFeldByName(name).getPflanzenliste().size()) {
+                                 data.setYValue(Util.getFeldByName(name).getPflanzenliste().get(couter++).getHoehe());
+                              }
+                              if (couter>Util.getFeldByName(name).getPflanzenliste().size()&&couter!=remove){
+                                 remove = couter;
+                              }
                            }
+                        }
+                        if (remove!=0) {
+                           bc.getData().remove(remove, bc.getData().size());
                         }
                      }
                   }

@@ -32,7 +32,7 @@ public class Login {
     public void login(Stage primaryStage){
         this.primaryStage = primaryStage;
         hinweis.setTextFill(Color.RED);
-        hinweis.setFont(Util.textFont);
+        hinweis.setFont(Util.hinweisFont);
 
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");

@@ -17,6 +17,7 @@ public class Util {
     // Schriftarten
     public static Font ueberschriftFont = new Font("Arial",18);
     public static Font textFont = new Font("Arial",15);
+    public static Font hinweisFont = new Font("Arial",10);
 
     // Feldname -> Feld
     public static Feld getFeldByName(String name) {

@@ -56,7 +56,9 @@ public class TabbedPane_automatenHandling {
     public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
 
         Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.aktuellerNutzer.getName());
-        TabbedPane.felder_des_Nutzers.add(feld);
+        TabbedPane.listAutomaten.getItems().add(feld.getName());
+        TabbedPane.listContent.getItems().add(feld.getName());
+        TabbedPane.listUebersicht.getItems().add(feld.getName());
     }
 
     public void loeschenButton(List<String> ausgewaelt) {

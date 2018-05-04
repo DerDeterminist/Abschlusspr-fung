@@ -31,7 +31,9 @@ import java.util.stream.Collectors;
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
 public class TabbedPane {
-    ListView<String> list = new ListView<String>();
+    public static ListView<String> listUebersicht = new ListView<String>();
+    public static ListView<String> listAutomaten = new ListView<String>();
+    public static ListView<String> listContent = new ListView<String>();
 
     public static ArrayList<Feld> felder_des_Nutzers = new ArrayList<>();
     static ObservableList<String> selektierteFelderDesNutzer = FXCollections.observableArrayList(new ArrayList<>());
@@ -87,21 +89,20 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        ListView<String> list = new ListView<String>();
-        list.setItems(liste_FelderListe_aneigen());
-        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        listUebersicht.setItems(liste_FelderListe_aneigen());
+        listUebersicht.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listUebersicht.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Tab tab = new Tab(newValue);
             tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
             konsoloe.getTabs().add(tab); });
-        list.setPrefSize(170,200);
-        list.setMaxSize(170,300);
-        border.setLeft(list);
+        listUebersicht.setPrefSize(170,200);
+        listUebersicht.setMaxSize(170,300);
+        border.setLeft(listUebersicht);
         Label ueberschrift = new Label("Übersicht");
         border.setTop(ueberschrift);
 
         Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.aktuellerNutzer.getName()+": "+anzFelderDesNutzers);
-        kurzeInfoUeberFelder.setFont(Util.ueberschriftFont);
+        kurzeInfoUeberFelder.setFont(Util.textFont);
         gridPane.add(kurzeInfoUeberFelder,0,0);
         gridPane.add(new Pie_Chart_Pflanzenarten().pieChart_pflanzenarten(),0,1);
 
@@ -127,20 +128,19 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        ListView<String> list = new ListView<String>();
-        list.setItems(liste_FelderListe_aneigen());
-        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        listAutomaten.setItems(liste_FelderListe_aneigen());
+        listAutomaten.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listAutomaten.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
             Tab tab = new Tab(newValue);
             tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
             konsoloe.getTabs().add(tab);
-            selektierteFelderDesNutzer = list.getSelectionModel().getSelectedItems();
+            selektierteFelderDesNutzer = listAutomaten.getSelectionModel().getSelectedItems();
         });
-        list.setPrefSize(170,200);
-        list.setMaxSize(170,300);
+        listAutomaten.setPrefSize(170,200);
+        listAutomaten.setMaxSize(170,300);
 
-        border.setLeft(list);
+        border.setLeft(listAutomaten);
         Label ueberschrift = new Label("Felder                          Automaten");
         ueberschrift.setFont(new Font("Arial",20));
         border.setTop(ueberschrift);
@@ -209,16 +209,15 @@ public class TabbedPane {
 
         gridPane.getChildren().add(new BarChart_ErwarteErnte().BarChart_ErwarteErnte());
 
-        ListView<String> list = new ListView<String>();
-        list.setItems(liste_FelderListe_aneigen());
-        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        listContent.setItems(liste_FelderListe_aneigen());
+        listContent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listContent.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Tab tab = new Tab(newValue);
             tab.setContent(new BarChart_PflanzenHoehe().BarCartPfanenHoehe(newValue));
             konsoloe.getTabs().add(tab); });
-        list.setPrefSize(170,200);
-        list.setMaxSize(170,300);
-        border.setLeft(list);
+        listContent.setPrefSize(170,200);
+        listContent.setMaxSize(170,300);
+        border.setLeft(listContent);
         Label ueberschrift = new Label("Felder");
         border.setTop(ueberschrift);
 
@@ -243,7 +242,6 @@ public class TabbedPane {
 
     private ObservableList liste_FelderListe_aneigen(){
 
-        //todo villeicht zusammenfassen
         ArrayList<String> namen_felder_des_Nutzers = new ArrayList<>();
         for (Feld feld : felder_des_Nutzers) {
                 namen_felder_des_Nutzers.add(feld.getName());
@@ -251,9 +249,7 @@ public class TabbedPane {
 
         ObservableList<String> items = FXCollections.observableArrayList (
                 namen_felder_des_Nutzers);
-        list.setItems(items);
-        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        list.setPrefSize(170,200);
+
         return items;
     }
 
