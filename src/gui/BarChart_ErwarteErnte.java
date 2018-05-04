@@ -53,11 +53,6 @@ public class BarChart_ErwarteErnte {
                                 for (XYChart.Series<String, Number> series : bc.getData()) {
                                     for (XYChart.Data<String, Number> data : series.getData()) {
                                         data.setYValue(TabbedPane.getVorrausichlicheErnte(TabbedPane.getFelder_des_Nutzers().get(couter++)));
-
-
-
-                                        //todo richtige daten
-//                                        data.setYValue(Math.random() * 100);
                                     }
                                 }
                             }
