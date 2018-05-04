@@ -45,14 +45,19 @@ public class BarChart_ErwarteErnte {
 
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(
-                new KeyFrame(Duration.millis(500),
+                new KeyFrame(Duration.millis(400),
                         new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
+                                int couter = 0;
                                 for (XYChart.Series<String, Number> series : bc.getData()) {
                                     for (XYChart.Data<String, Number> data : series.getData()) {
+                                        data.setYValue(TabbedPane.getVorrausichlicheErnte(TabbedPane.getFelder_des_Nutzers().get(couter++)));
+
+
+
                                         //todo richtige daten
-                                        data.setYValue(Math.random() * 100);
+//                                        data.setYValue(Math.random() * 100);
                                     }
                                 }
                             }

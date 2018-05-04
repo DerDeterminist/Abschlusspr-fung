@@ -35,11 +35,9 @@ public class BarChart_PflanzenHoehe
       // Daten für alle Felder des angemeldeten Nutzers
       for( FeldPflanzen pflanze : Util.getFeldByName(name).getPflanzenliste() )
       {
-
          XYChart.Series series = new XYChart.Series();
          series.getData().add(new XYChart.Data(pflanze.getName(), pflanze.getHoehe()));
          bc.getData().add(series);
-
       }
       bc.setBarGap(8);
       bc.setCategoryGap(8);
@@ -50,18 +48,18 @@ public class BarChart_PflanzenHoehe
       Timeline tl = new Timeline();
       tl.getKeyFrames().add(
             new KeyFrame(
-                  Duration.millis(500),
+                  Duration.millis(400),
                   new EventHandler<ActionEvent>()
                   {
                      @Override
                      public void handle(ActionEvent actionEvent)
                      {
+                        int couter = 0;
                         for( XYChart.Series<String, Number> series : bc.getData() )
                         {
                            for( XYChart.Data<String, Number> data : series.getData() )
                            {
-                              //todo richtige daten
-                              data.setYValue(Math.random() * 100);
+                              data.setYValue(Util.getFeldByName(name).getPflanzenliste().get(couter++).getHoehe());
                            }
                         }
                      }
