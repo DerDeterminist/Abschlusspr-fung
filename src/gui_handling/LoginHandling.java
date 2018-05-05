@@ -2,6 +2,7 @@ package gui_handling;
 
 import app.Feld;
 import app.Nutzer;
+import app.i18n;
 import dao.LesenUndSchreibenLernen;
 import gui.Login;
 import gui.TabbedPane;
@@ -17,7 +18,7 @@ public class LoginHandling {
 
 
         if (!name.equals("")) {
-            Nutzer neuerNutzer = new Nutzer(name, passwort);
+            Nutzer neuerNutzer = new Nutzer(name, passwort,".CSV","deutsch");
             for (Nutzer nutzer : (ArrayList<Nutzer>) LesenUndSchreibenLernen.nutzerLesen()) {
                 if (nutzer.getName() == neuerNutzer.getName()) {
                     nutzerSchonVorhanden = true;
@@ -41,6 +42,8 @@ public class LoginHandling {
         for (Nutzer nutzer : alleNutzer) {
             if (nutzer.getName().equals(name) && nutzer.getPasswort().equals(passwort)) {
                 Nutzer.aktuellerNutzer=nutzer;
+                // todo bug
+//                i18n.i18nSetup(Nutzer.aktuellerNutzer.getSprache());
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             }else {
                 hinweis.setText("Falsche Anmeldedaten");

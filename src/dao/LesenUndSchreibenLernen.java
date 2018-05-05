@@ -112,7 +112,7 @@ public class LesenUndSchreibenLernen {
         try {
             pw = new PrintWriter(new File("res\\index\\nutzer.csv"));
             for (Nutzer nutzer : Nutzer_inhalt) {
-                pw.println(nutzer.getName()+";"+nutzer.getPasswort());
+                pw.println(nutzer.getName()+";"+nutzer.getPasswort()+";"+nutzer.getSpeichart()+";"+nutzer.getSprache()+";"+nutzer.getMaisGeerntet()+";"+nutzer.getWeizenGeerntet());
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -132,7 +132,7 @@ public class LesenUndSchreibenLernen {
             while ((line = br.readLine())!=null){
 
             String[] objekte = line.split(";");
-            Nutzer_inhalt.add(new Nutzer(objekte[0],objekte[1]));
+            Nutzer_inhalt.add(new Nutzer(objekte[0],objekte[1],objekte[2],objekte[3],Integer.parseInt(objekte[4]),Integer.parseInt(objekte[5])));
         }
         br.close();
         }catch (IOException e){

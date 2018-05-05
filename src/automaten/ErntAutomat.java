@@ -3,7 +3,9 @@ package automaten;
 import java.util.ArrayList;
 
 import app.Feld;
+import gui.Pie_Chart_geerntet;
 import pflanzen.FeldPflanzen;
+import pflanzen.PflanzenArten;
 
 public class ErntAutomat implements Automaten
 {
@@ -27,6 +29,12 @@ public class ErntAutomat implements Automaten
             }
          }
          feld.getPflanzenliste().removeAll(zuErnten);
+         if (feld.getPflanzenArten()== PflanzenArten.Weizen){
+            Pie_Chart_geerntet.weizenData.setPieValue(Pie_Chart_geerntet.weizenData.getPieValue()+zuErnten.size());
+         }
+         if (feld.getPflanzenArten() == PflanzenArten.Mais) {
+            Pie_Chart_geerntet.maisData.setPieValue(Pie_Chart_geerntet.maisData.getPieValue()+zuErnten.size());
+         }
       }).start();
    }
 }

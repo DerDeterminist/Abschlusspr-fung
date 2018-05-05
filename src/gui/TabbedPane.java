@@ -7,7 +7,6 @@ import dao.LesenUndSchreibenLernen;
 import gui_handling.System_exit;
 import gui_handling.TabbedPane_automatenHandling;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -17,16 +16,15 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import pflanzen.FeldPflanzen;
 import pflanzen.PflanzenArten;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE;
 
@@ -41,6 +39,8 @@ public class TabbedPane {
     static int anzFelderDesNutzers = 0;
     static int davonMeis = 0;
     static int davonWeizen = 0;
+
+    Label hinweisNeuesPw = new Label("");
     public void starteProgramm(Stage primaryStage){
         listenStatsGeneriren();
 
@@ -154,8 +154,8 @@ public class TabbedPane {
         TextField anz = new TextField();
         anz.setPromptText("Maximale Anzal der Pflanzen");
         ComboBox arten = new ComboBox();
-        Button button_neu = new Button("Neues Feld");
         arten.setItems(Util.getPflanzenartenObservable());
+        Button button_neu = new Button("Neues Feld");
         gridNeu.add(neu,0,0);
         gridNeu.add(name,0,1);
         gridNeu.add(anz,0,2);
@@ -207,7 +207,8 @@ public class TabbedPane {
         konsoloe.setMaxHeight(300);
         border.setBottom(konsoloe);
 
-        gridPane.getChildren().add(new BarChart_ErwarteErnte().BarChart_ErwarteErnte());
+        gridPane.add(new Pie_Chart_geerntet().pieChart_geertntet(),1,1);
+        gridPane.add(new BarChart_ErwarteErnte().BarChart_ErwarteErnte(),2,1);
 
         listContent.setItems(liste_FelderListe_aneigen());
         listContent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -235,9 +236,66 @@ public class TabbedPane {
         }
         stackPane.getChildren().addAll(background,border);
         GridPane gridPane = new GridPane();
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
         border.setCenter(gridPane);
 
+        Label labelSpeicherart = new Label();
+        labelSpeicherart.setFont(Util.textFont);
+        labelSpeicherart.setText("Speicherart");
+        labelSpeicherart.setTextFill(Color.WHITE);
+        ObservableList<String> speicherarten = FXCollections.observableArrayList (".CSV","Datenbank");
+        ComboBox speicherart = new ComboBox();
+        speicherart.setItems(speicherarten);
+        speicherart.getSelectionModel().select(Nutzer.aktuellerNutzer.getSpeichart());
+        speicherart.addEventHandler(ActionEvent.ACTION,(e)->speichernCombobox(speicherart.getSelectionModel().getSelectedItem().toString()));
+
+        Label labelSprache = new Label();
+        labelSprache.setFont(Util.textFont);
+        labelSprache.setText(("Sprache"));
+        labelSprache.setTextFill(Color.WHITE);
+        ObservableList<String> sprachen = FXCollections.observableArrayList ("deutsch","english");
+        ComboBox comboBoxSprachen = new ComboBox();
+        comboBoxSprachen.setItems(sprachen);
+        comboBoxSprachen.getSelectionModel().select(Nutzer.aktuellerNutzer.getSprache());
+        comboBoxSprachen.addEventHandler(ActionEvent.ACTION,(e)-> sprachenCombobox(comboBoxSprachen.getSelectionModel().getSelectedItem().toString()));
+
+        Button buttonNeuesPw = new Button("Neues Passwort");
+        buttonNeuesPw.setFont(Util.textFont);
+        PasswordField neuesPW1 = new PasswordField();
+        neuesPW1.setPromptText("Passwort");
+        PasswordField neuesPW2 = new PasswordField();
+        neuesPW2.setPromptText("Passwort bestätigen");
+        buttonNeuesPw.addEventHandler(ActionEvent.ACTION,(e)-> neuesPW(neuesPW1.getText(),neuesPW2.getText()));
+
+        gridPane.add(labelSpeicherart,1,1);
+        gridPane.add(speicherart,1,2);
+        gridPane.add(labelSprache,3,1);
+        gridPane.add(comboBoxSprachen,3,2);
+        gridPane.add(neuesPW1,5,1);
+        gridPane.add(neuesPW2,5,2);
+        gridPane.add(buttonNeuesPw,5,3);
+        gridPane.add(hinweisNeuesPw,5,4);
+
         return stackPane;
+    }
+
+    private void neuesPW(String pw1,String pw2){
+        if (pw1.equals(pw2)){
+            Nutzer.aktuellerNutzer.setPasswort(pw1);
+        }else {
+            hinweisNeuesPw.setFont(Util.hinweisFont);
+            hinweisNeuesPw.setTextFill(Color.RED);
+            hinweisNeuesPw.setText("Falsche Eingabe");
+        }
+    }
+
+    private void speichernCombobox(String selected){
+        Nutzer.aktuellerNutzer.setSpeichart(selected);
+    }
+
+    private void sprachenCombobox(String selected){
+        Nutzer.aktuellerNutzer.setSprache(selected);
     }
 
     private ObservableList liste_FelderListe_aneigen(){

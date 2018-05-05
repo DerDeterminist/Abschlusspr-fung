@@ -21,7 +21,8 @@ public class AutomatTest {
 
         for (int i=0;i<51;i++){
             gießAutomat.arbeiten(feld);
-            Thread.sleep(100);
+            // da mutltithreading
+            Thread.sleep(150);
         }
 
 
@@ -31,9 +32,15 @@ public class AutomatTest {
 
         erntAutomat.arbeiten(feld);
 
+        // da mutltithreading
+       Thread.sleep(150);
+
         assertTrue(0==feld.getPflanzenliste().size());
 
         saenautomat.arbeiten(feld);
+
+        // da mutltithreading
+        Thread.sleep(150);
 
         assertTrue(feld.getPflanzenliste().size()==feld.getPflanzenAnz());
     }
