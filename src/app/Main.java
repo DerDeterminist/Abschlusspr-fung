@@ -8,7 +8,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-    //todo meldung beim beenden; datenbank; dokumentation
+    //todo datenbank; dokumentation; codestyle
 
     public static void main(String[] args) {
 
