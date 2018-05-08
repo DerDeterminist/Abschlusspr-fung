@@ -1,5 +1,6 @@
 package gui;
 
+import app.I18n;
 import app.Util;
 import gui_handling.LoginHandling;
 import dao.LesenUndSchreibenLernen;
@@ -35,17 +36,17 @@ public class Login {
         hinweis.setFont(Util.hinweisFont);
 
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle(I18n.getText("login"));
         primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
 
 
         PasswordField accPwIn = new PasswordField();
-        accPwIn.setPromptText("Passwort");
+        accPwIn.setPromptText(I18n.getText("password"));
         TextField accNameIn = new TextField();
-        accNameIn.setPromptText("Benutzername");
-        Button _newAcc = new Button("neues Konto");
+        accNameIn.setPromptText(I18n.getText("username"));
+        Button _newAcc = new Button("new_account");
         _newAcc.addEventHandler(ActionEvent.ACTION,(e) ->  new LoginHandling().neuerNutzer(accNameIn.getText(),accPwIn.getText(),hinweis));
-        Button login = new Button("login");
+        Button login = new Button(I18n.getText("login"));
         login.addEventHandler(ActionEvent.ACTION, (e)-> new LoginHandling().loginHandling(LesenUndSchreibenLernen.getNutzer_inhalt(),accNameIn.getText(),accPwIn.getText(),hinweis));
 
         StackPane p1 = new StackPane();

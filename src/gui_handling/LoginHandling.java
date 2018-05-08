@@ -1,8 +1,8 @@
 package gui_handling;
 
 import app.Feld;
+import app.I18n;
 import app.Nutzer;
-import app.i18n;
 import dao.LesenUndSchreibenLernen;
 import gui.Login;
 import gui.TabbedPane;
@@ -18,7 +18,7 @@ public class LoginHandling {
 
 
         if (!name.equals("")) {
-            Nutzer neuerNutzer = new Nutzer(name, passwort,".CSV","deutsch");
+            Nutzer neuerNutzer = new Nutzer(name, passwort,".CSV","German");
             for (Nutzer nutzer : (ArrayList<Nutzer>) LesenUndSchreibenLernen.nutzerLesen()) {
                 if (nutzer.getName() == neuerNutzer.getName()) {
                     nutzerSchonVorhanden = true;
@@ -27,14 +27,14 @@ public class LoginHandling {
             if (!nutzerSchonVorhanden) {
                 LesenUndSchreibenLernen.getNutzer_inhalt().add(neuerNutzer);
                 Nutzer.aktuellerNutzer=neuerNutzer;
-                new Feld("Weizenfeld "+neuerNutzer.getName(), PflanzenArten.Weizen,50,neuerNutzer.getName());
-                new Feld("Maisfeld "+neuerNutzer.getName(),PflanzenArten.Mais,50,neuerNutzer.getName());
+                new Feld(I18n.getText("wheat_field")+neuerNutzer.getName(), PflanzenArten.Weizen,50,neuerNutzer.getName());
+                new Feld(I18n.getText("maisfeld")+neuerNutzer.getName(),PflanzenArten.Mais,50,neuerNutzer.getName());
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             } else {
-                hinweis.setText("Dieser Benutzername ist schon vergeben");
+                hinweis.setText(I18n.getText("Username_is_already_taken"));
             }
         } else {
-            hinweis.setText("Bitte geben Sie einen Benutzernamen ein");
+            hinweis.setText(I18n.getText("please_enter_user_name"));
         }
     }
 
@@ -46,7 +46,7 @@ public class LoginHandling {
 //                i18n.i18nSetup(Nutzer.aktuellerNutzer.getSprache());
                 new TabbedPane().starteProgramm(Login.getPrimaryStage());
             }else {
-                hinweis.setText("Falsche Anmeldedaten");
+                hinweis.setText(I18n.getText("wrong_credentials"));
             }
         }
     }

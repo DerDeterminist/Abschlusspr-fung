@@ -1,6 +1,7 @@
 package gui;
 
 import app.Feld;
+import app.I18n;
 import app.Util;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -22,11 +23,11 @@ public class BarChart_ErwarteErnte {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc =
                 new BarChart<String, Number>(xAxis, yAxis);
-        xAxis.setLabel("Felder");
+        xAxis.setLabel("fields");
         xAxis.setTickLabelFont(Util.ueberschriftFont);
         xAxis.setTickLabelFill(Color.BLACK);
         //todo label yAxis übernimmt die werte nicht
-        yAxis.setLabel("Erwartete Ernte");
+        yAxis.setLabel(I18n.getText("Expected_harvest"));
         yAxis.setTickLabelFont(Util.ueberschriftFont);
         yAxis.setTickLabelFill(Color.BLACK);
 

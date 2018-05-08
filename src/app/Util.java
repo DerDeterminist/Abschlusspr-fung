@@ -39,7 +39,7 @@ public class Util {
     // Observable PflanzenartenListe
     public static ObservableList<String> getPflanzenartenObservable() {
         ObservableList<String> options = FXCollections.observableArrayList();
-        options.addAll(PflanzenArten.Mais.name(),PflanzenArten.Weizen.name());
+        options.addAll(I18n.getText("sweet_corn"),I18n.getText("wheat"));
         return options;
     }
     // Pfanzenarart Name -> Pflanzenart

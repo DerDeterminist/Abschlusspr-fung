@@ -1,6 +1,7 @@
 package gui_handling;
 
 import app.Feld;
+import app.I18n;
 import app.Nutzer;
 import app.Util;
 import automaten.ErntAutomat;
@@ -9,42 +10,46 @@ import automaten.Saenautomat;
 import dao.LesenUndSchreibenLernen;
 import gui.TabbedPane;
 import pflanzen.PflanzenArten;
+import pflanzen.Weizen;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TabbedPane_automatenHandling {
 
-    public void erntenButton(List<String> ausgewaelt){
+    public void erntenButton(List<String> ausgewaelt) {
         ErntAutomat erntAutomat = new ErntAutomat();
-        for (Feld feld  : TabbedPane.getFelder_des_Nutzers()) {
-            if (ausgewaelt.contains(feld.getName())){
-               erntAutomat.arbeiten(feld);
+        for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
+            if (ausgewaelt.contains(feld.getName())) {
+                erntAutomat.arbeiten(feld);
             }
         }
     }
-    public void geißenButton(List<String> ausgewaelt){
+
+    public void geißenButton(List<String> ausgewaelt) {
         GießAutomat gießAutomat = new GießAutomat();
         for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
-            if (ausgewaelt.contains(feld.getName())){
+            if (ausgewaelt.contains(feld.getName())) {
                 gießAutomat.arbeiten(feld);
             }
         }
     }
-    public void saeenButton(List<String> ausgewaelt){
+
+    public void saeenButton(List<String> ausgewaelt) {
         Saenautomat saenautomat = new Saenautomat();
         for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
-            if (ausgewaelt.contains(feld.getName())){
+            if (ausgewaelt.contains(feld.getName())) {
                 saenautomat.arbeiten(feld);
             }
         }
     }
-    public void allesButton(List<String> ausgewaelt){
+
+    public void allesButton(List<String> ausgewaelt) {
         Saenautomat saenautomat = new Saenautomat();
         GießAutomat gießAutomat = new GießAutomat();
         ErntAutomat erntAutomat = new ErntAutomat();
         for (Feld feld : TabbedPane.getFelder_des_Nutzers()) {
-            if (ausgewaelt.contains(feld.getName())){
+            if (ausgewaelt.contains(feld.getName())) {
                 saenautomat.arbeiten(feld);
                 gießAutomat.arbeiten(feld);
                 erntAutomat.arbeiten(feld);
@@ -53,9 +58,14 @@ public class TabbedPane_automatenHandling {
             }
         }
     }
-    public void neuButton(String name,PflanzenArten pflanzenArten,int pflanzenAnz){
 
-        Feld feld = new Feld(name,pflanzenArten,pflanzenAnz, Nutzer.aktuellerNutzer.getName());
+    public void neuButton(String name, PflanzenArten pflanzenArten, int pflanzenAnz) {
+
+        PflanzenArten pflanzenArten1 = PflanzenArten.Mais;
+        if (pflanzenArten.equals(I18n.getText("wheat"))) {
+            pflanzenArten1 = PflanzenArten.Weizen;
+        }
+        Feld feld = new Feld(name, pflanzenArten1, pflanzenAnz, Nutzer.aktuellerNutzer.getName());
         TabbedPane.listAutomaten.getItems().add(feld.getName());
         TabbedPane.listContent.getItems().add(feld.getName());
         TabbedPane.listUebersicht.getItems().add(feld.getName());
@@ -66,20 +76,4 @@ public class TabbedPane_automatenHandling {
             LesenUndSchreibenLernen.getFelder_inhalt().remove(Util.getFeldByName(s));
         }
     }
-
-
-//    public static TableView tabelleErstellen(String feldname){
-//        TableView table = new TableView();
-//        table.setPrefHeight(250);
-//        TableColumn name = new TableColumn("Name");
-//        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,String>("name"));
-//        TableColumn hoehe = new TableColumn("Höhe");
-//        //todo höhe und pflanzenart wird nicht angezeigt
-//        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen,Double>("hoehe"));
-//        TableColumn pflanzenart = new TableColumn("Pflanzenart");
-//        name.setCellValueFactory(new PropertyValueFactory<FeldPflanzen, PflanzenArten>("pflanzenArten"));
-//        table.getColumns().addAll(name,hoehe,pflanzenart);
-//        table.setItems(Util.getFeldpflanzenObservable(Util.getFeldByName(feldname)));
-//        return table;
-//    }
 }

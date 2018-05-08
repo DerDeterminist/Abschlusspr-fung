@@ -1,6 +1,7 @@
 package gui;
 
 import app.Feld;
+import app.I18n;
 import app.Nutzer;
 import app.Util;
 import dao.LesenUndSchreibenLernen;
@@ -45,7 +46,7 @@ public class TabbedPane {
         listenStatsGeneriren();
 
         //todo villeicht nächste zeile über
-        primaryStage.setTitle("Bauernhof");
+        primaryStage.setTitle(I18n.getText("farm"));
         primaryStage.setOnCloseRequest((e)-> {e.consume(); System_exit.exit();});
 
         TabPane tabPane = new TabPane();
@@ -53,16 +54,16 @@ public class TabbedPane {
 
         // tabPane haubtSene
         Tab tab_uebersicht = new Tab();
-        tab_uebersicht.setText("Übersicht");
+        tab_uebersicht.setText(I18n.getText("overview"));
         tab_uebersicht.setContent(uebersicht_Contet());
         Tab tab_automaten = new Tab();
-        tab_automaten.setText("Automaten");
+        tab_automaten.setText(I18n.getText("features"));
         tab_automaten.setContent(automatne_Content());
         Tab tab_stats = new Tab();
-        tab_stats.setText("Auswertung");
+        tab_stats.setText(I18n.getText("evaluation"));
         tab_stats.setContent(stats_Content());
         Tab tab_rechte = new Tab();
-        tab_rechte.setText("Einstellungen");
+        tab_rechte.setText(I18n.getText("settings"));
         tab_rechte.setContent(rechte_Content());
         tabPane.getTabs().addAll(tab_uebersicht,tab_automaten,tab_stats,tab_rechte);
 
@@ -98,10 +99,10 @@ public class TabbedPane {
         listUebersicht.setPrefSize(170,200);
         listUebersicht.setMaxSize(170,300);
         border.setLeft(listUebersicht);
-        Label ueberschrift = new Label("Übersicht");
+        Label ueberschrift = new Label(I18n.getText("overview"));
         border.setTop(ueberschrift);
 
-        Label kurzeInfoUeberFelder = new Label("Anzal der Felder von "+Nutzer.aktuellerNutzer.getName()+": "+anzFelderDesNutzers);
+        Label kurzeInfoUeberFelder = new Label(I18n.getText("Number_of_fields_from")+" "+Nutzer.aktuellerNutzer.getName()+": "+anzFelderDesNutzers);
         kurzeInfoUeberFelder.setFont(Util.textFont);
         gridPane.add(kurzeInfoUeberFelder,0,0);
         gridPane.add(new Pie_Chart_Pflanzenarten().pieChart_pflanzenarten(),0,1);
@@ -141,21 +142,21 @@ public class TabbedPane {
         listAutomaten.setMaxSize(170,300);
 
         border.setLeft(listAutomaten);
-        Label ueberschrift = new Label("Felder                          Automaten");
+        Label ueberschrift = new Label(I18n.getText("fields"));
         ueberschrift.setFont(new Font("Arial",20));
         border.setTop(ueberschrift);
 
         GridPane gridNeu = new GridPane();
         gridNeu.setHgap(10);
         gridNeu.setVgap(10);
-        Label neu = new Label("Daten für neues Feld");
+        Label neu = new Label(I18n.getText("Data_for_new_field"));
         TextField name = new TextField();
-        name.setPromptText("Name des Feldes");
+        name.setPromptText(I18n.getText("Name_of_the_field"));
         TextField anz = new TextField();
-        anz.setPromptText("Maximale Anzal der Pflanzen");
+        anz.setPromptText(I18n.getText("Maximum_number_of_plants"));
         ComboBox arten = new ComboBox();
         arten.setItems(Util.getPflanzenartenObservable());
-        Button button_neu = new Button("Neues Feld");
+        Button button_neu = new Button(I18n.getText("New_field"));
         gridNeu.add(neu,0,0);
         gridNeu.add(name,0,1);
         gridNeu.add(anz,0,2);
@@ -164,11 +165,11 @@ public class TabbedPane {
         border.setRight(gridNeu);
 
 
-        Button ernen = new Button("Ernten");
-        Button geißen = new Button("Gießen");
-        Button saeen = new Button("Säen");
-        Button alles = new Button("alle Automaten");
-        Button loeschen = new Button("Löschen");
+        Button ernen = new Button(I18n.getText("harvest"));
+        Button geißen = new Button(I18n.getText("water"));
+        Button saeen = new Button(I18n.getText("seed"));
+        Button alles = new Button(I18n.getText("all_machines"));
+        Button loeschen = new Button(I18n.getText("delete"));
         ernen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().erntenButton(getSeleked_fromList()));
         geißen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().geißenButton(getSeleked_fromList()));
         saeen.addEventHandler(ActionEvent.ACTION,(e)-> new TabbedPane_automatenHandling().saeenButton(getSeleked_fromList()));
@@ -219,7 +220,7 @@ public class TabbedPane {
         listContent.setPrefSize(170,200);
         listContent.setMaxSize(170,300);
         border.setLeft(listContent);
-        Label ueberschrift = new Label("Felder");
+        Label ueberschrift = new Label(I18n.getText("fields"));
         border.setTop(ueberschrift);
 
         return stackPane;
@@ -242,30 +243,30 @@ public class TabbedPane {
 
         Label labelSpeicherart = new Label();
         labelSpeicherart.setFont(Util.textFont);
-        labelSpeicherart.setText("Speicherart");
+        labelSpeicherart.setText(I18n.getText("memory_Type"));
         labelSpeicherart.setTextFill(Color.WHITE);
-        ObservableList<String> speicherarten = FXCollections.observableArrayList (".CSV","Datenbank");
+        ObservableList<String> speicherarten = FXCollections.observableArrayList (".CSV",I18n.getText("Database"));
         ComboBox speicherart = new ComboBox();
         speicherart.setItems(speicherarten);
-        speicherart.getSelectionModel().select(Nutzer.aktuellerNutzer.getSpeichart());
+        speicherart.getSelectionModel().select(I18n.getText(Nutzer.aktuellerNutzer.getSpeichart()));
         speicherart.addEventHandler(ActionEvent.ACTION,(e)->speichernCombobox(speicherart.getSelectionModel().getSelectedItem().toString()));
 
         Label labelSprache = new Label();
         labelSprache.setFont(Util.textFont);
-        labelSprache.setText(("Sprache"));
+        labelSprache.setText((I18n.getText("language")));
         labelSprache.setTextFill(Color.WHITE);
-        ObservableList<String> sprachen = FXCollections.observableArrayList ("deutsch","english");
+        ObservableList<String> sprachen = FXCollections.observableArrayList (I18n.getText("German"),I18n.getText("English"));
         ComboBox comboBoxSprachen = new ComboBox();
         comboBoxSprachen.setItems(sprachen);
-        comboBoxSprachen.getSelectionModel().select(Nutzer.aktuellerNutzer.getSprache());
+        comboBoxSprachen.getSelectionModel().select(I18n.getText(Nutzer.aktuellerNutzer.getSprache()));
         comboBoxSprachen.addEventHandler(ActionEvent.ACTION,(e)-> sprachenCombobox(comboBoxSprachen.getSelectionModel().getSelectedItem().toString()));
 
-        Button buttonNeuesPw = new Button("Neues Passwort");
+        Button buttonNeuesPw = new Button(I18n.getText("New_Password"));
         buttonNeuesPw.setFont(Util.textFont);
         PasswordField neuesPW1 = new PasswordField();
-        neuesPW1.setPromptText("Passwort");
+        neuesPW1.setPromptText(I18n.getText("password"));
         PasswordField neuesPW2 = new PasswordField();
-        neuesPW2.setPromptText("Passwort bestätigen");
+        neuesPW2.setPromptText(I18n.getText("Confirm_Password"));
         buttonNeuesPw.addEventHandler(ActionEvent.ACTION,(e)-> neuesPW(neuesPW1.getText(),neuesPW2.getText()));
 
         gridPane.add(labelSpeicherart,1,1);
@@ -286,7 +287,7 @@ public class TabbedPane {
         }else {
             hinweisNeuesPw.setFont(Util.hinweisFont);
             hinweisNeuesPw.setTextFill(Color.RED);
-            hinweisNeuesPw.setText("Falsche Eingabe");
+            hinweisNeuesPw.setText(I18n.getText("Wrong_entry"));
         }
     }
 

@@ -1,5 +1,9 @@
 package gui;
 
+import java.util.ArrayList;
+
+import app.Feld;
+import app.I18n;
 import app.Util;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -24,11 +28,11 @@ public class BarChart_PflanzenHoehe
       final CategoryAxis xAxis = new CategoryAxis();
       final NumberAxis yAxis = new NumberAxis();
       final BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
-      xAxis.setLabel("Pflanzen");
+      xAxis.setLabel(I18n.getText("plants"));
       xAxis.setTickLabelFont(Util.ueberschriftFont);
       xAxis.setTickLabelFill(Color.BLACK);
       //todo label yAxis übernimmt die werte nicht
-      yAxis.setLabel("Höhe");
+      yAxis.setLabel(I18n.getText("height"));
       yAxis.setTickLabelFont(Util.ueberschriftFont);
       yAxis.setTickLabelFill(Color.BLACK);
 
@@ -55,19 +59,25 @@ public class BarChart_PflanzenHoehe
                      public void handle(ActionEvent actionEvent)
                      {
                         int couter = 0;
-                        int remove = 0;
-                        for( XYChart.Series<String, Number> series : bc.getData() ) {
-                           for( XYChart.Data<String, Number> data : series.getData() ) {
-                              if (couter<=Util.getFeldByName(name).getPflanzenliste().size()) {
-                                 data.setYValue(Util.getFeldByName(name).getPflanzenliste().get(couter++).getHoehe());
+                        for( XYChart.Series<String, Number> series : bc.getData() )
+                        {
+                           for( XYChart.Data<String, Number> data : series.getData() )
+                           {
+                              Feld feldByName = Util.getFeldByName(name);
+                              if(feldByName == null)
+                              {
+                                 System.out.println("Alaram");
                               }
-                              if (couter>Util.getFeldByName(name).getPflanzenliste().size()&&couter!=remove){
-                                 remove = couter;
+                              ArrayList<FeldPflanzen> pflanzenliste = feldByName.getPflanzenliste();
+                              if ( couter < pflanzenliste.size())
+                              {
+                                 data.setYValue(pflanzenliste.get(couter++).getHoehe());
                               }
                            }
                         }
-                        if (remove!=0) {
-                           bc.getData().remove(remove, bc.getData().size());
+                        if (couter!=0)
+                        {
+                           bc.getData().remove(couter, bc.getData().size());
                         }
                      }
                   }

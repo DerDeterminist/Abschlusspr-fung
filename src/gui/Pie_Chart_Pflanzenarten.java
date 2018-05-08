@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Label;
 
+import app.I18n;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -15,8 +16,8 @@ public class Pie_Chart_Pflanzenarten
 
    double maisProzent = ((double) TabbedPane.getDavonMeis()/(double) TabbedPane.getFelder_des_Nutzers().size())*100d;
    double weizenProzent = ((double) TabbedPane.getDavonWeizen()/(double) TabbedPane.getFelder_des_Nutzers().size())*100d;
-   public PieChart.Data maisData = new PieChart.Data("Mais "+maisProzent+"%", TabbedPane.getDavonMeis());
-   public PieChart.Data weizenData = new PieChart.Data("Weizen "+weizenProzent+"%", TabbedPane.getDavonWeizen());
+   public PieChart.Data maisData = new PieChart.Data(I18n.getText("sweet_corn")+maisProzent+"%", TabbedPane.getDavonMeis());
+   public PieChart.Data weizenData = new PieChart.Data(I18n.getText("wheat")+weizenProzent+"%", TabbedPane.getDavonWeizen());
 
    public Node pieChart_pflanzenarten()
    {
@@ -27,7 +28,7 @@ public class Pie_Chart_Pflanzenarten
 
 
       final PieChart pieChart_Pflanzenarten = new PieChart(pieChartData);
-      pieChart_Pflanzenarten.setTitle("Verteilung der Feldarten");
+      pieChart_Pflanzenarten.setTitle(I18n.getText("Distribution_of_field_types"));
       pieChart_Pflanzenarten.setMaxSize(240, 240);
       pieChart_Pflanzenarten.setMinSize(240, 240);
       pieChart_Pflanzenarten.setLabelLineLength(8);
