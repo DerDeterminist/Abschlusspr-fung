@@ -3,6 +3,7 @@ package gui;
 import java.awt.Label;
 
 import app.I18n;
+import app.Nutzer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,10 +15,10 @@ import javafx.scene.input.MouseEvent;
 public class Pie_Chart_Pflanzenarten
 {
 
-   double maisProzent = ((double) TabbedPane.getDavonMeis()/(double) TabbedPane.getFelder_des_Nutzers().size())*100d;
-   double weizenProzent = ((double) TabbedPane.getDavonWeizen()/(double) TabbedPane.getFelder_des_Nutzers().size())*100d;
-   public PieChart.Data maisData = new PieChart.Data(I18n.getText("sweet_corn")+maisProzent+"%", TabbedPane.getDavonMeis());
-   public PieChart.Data weizenData = new PieChart.Data(I18n.getText("wheat")+weizenProzent+"%", TabbedPane.getDavonWeizen());
+   double maisProzent = ((double) TabbedPane.getDavonMeis() / (double) Nutzer.aktuellerNutzer.getNutzerFelder().size()) * 100d;
+   double weizenProzent = ((double) TabbedPane.getDavonWeizen() / (double) Nutzer.aktuellerNutzer.getNutzerFelder().size()) * 100d;
+   public PieChart.Data maisData = new PieChart.Data(I18n.getText("sweet_corn") + maisProzent + "%", TabbedPane.getDavonMeis());
+   public PieChart.Data weizenData = new PieChart.Data(I18n.getText("wheat") + weizenProzent + "%", TabbedPane.getDavonWeizen());
 
    public Node pieChart_pflanzenarten()
    {

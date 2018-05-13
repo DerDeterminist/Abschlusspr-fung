@@ -1,61 +1,99 @@
 package app;
 
-public class Nutzer {
+import java.util.ArrayList;
 
-    String name;
-    String passwort;
-    String speichart;
-    String sprache;
-    int maisGeerntet;
-    int weizenGeerntet;
+public class Nutzer
+{
 
-    public static Nutzer aktuellerNutzer;
+   String name;
+   String passwort;
+   int speichart;
+   int sprache;
+   int maisGeerntet;
+   int weizenGeerntet;
+   ArrayList<Feld> NutzerFelder = new ArrayList<>();
 
-    public Nutzer(String name, String passwort, String speicherart, String sprache){
-        this.name = name;
-        this.passwort = passwort;
-        this.speichart = speicherart;
-        this.sprache = sprache;
-    }
+   public ArrayList<Feld> getNutzerFelder() {
+      return NutzerFelder;
+   }
 
-    public Nutzer(String name, String passwort, String speicherart, String sprache,int maisGeerntet,int weizenGeerntet){
-        this.name = name;
-        this.passwort = passwort;
-        this.speichart = speicherart;
-        this.sprache = sprache;
-        this.maisGeerntet = maisGeerntet;
-        this.weizenGeerntet = weizenGeerntet;
-    }
+   public static Nutzer aktuellerNutzer;
 
-    public String getName() {
-        return name;
-    }
+   public Nutzer(String name, String passwort, Integer speicherart, Integer sprache)
+   {
+      this.name = name;
+      this.passwort = passwort;
+      this.speichart = speicherart;
+      this.sprache = sprache;
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public Nutzer(String name, String passwort, Integer speicherart, Integer sprache, int maisGeerntet, int weizenGeerntet)
+   {
+      this.name = name;
+      this.passwort = passwort;
+      this.speichart = speicherart;
+      this.sprache = sprache;
+      this.maisGeerntet = maisGeerntet;
+      this.weizenGeerntet = weizenGeerntet;
+   }
 
-    public String getPasswort() {
-        return passwort;
-    }
+   public String getName()
+   {
+      return name;
+   }
 
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
-    }
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-    public String getSpeichart() { return speichart; }
+   public String getPasswort()
+   {
+      return passwort;
+   }
 
-    public void setSpeichart(String speichart) { this.speichart = speichart; }
+   public void setPasswort(String passwort)
+   {
+      this.passwort = passwort;
+   }
 
-    public String getSprache() { return sprache; }
+   public Integer getSpeichart()
+   {
+      return speichart;
+   }
 
-    public void setSprache(String sprache) { this.sprache = sprache; }
+   public void setSpeichart(Integer speichart)
+   {
+      this.speichart = speichart;
+   }
 
-    public int getMaisGeerntet() { return maisGeerntet; }
+   public Integer getSprache()
+   {
+      return sprache;
+   }
 
-    public void setMaisGeerntet(int maisGeerntet) { this.maisGeerntet = maisGeerntet; }
+   public void setSprache(Integer sprache)
+   {
+      this.sprache = sprache;
+   }
 
-    public int getWeizenGeerntet() { return weizenGeerntet; }
+   public int getMaisGeerntet()
+   {
+      return maisGeerntet;
+   }
 
-    public void setWeizenGeerntet(int weizenGeerntet) { this.weizenGeerntet = weizenGeerntet; }
+   public void setMaisGeerntet(int maisGeerntet)
+   {
+      this.maisGeerntet = maisGeerntet;
+   }
+
+   public int getWeizenGeerntet()
+   {
+      return weizenGeerntet;
+   }
+
+   public void setWeizenGeerntet(int weizenGeerntet)
+   {
+      this.weizenGeerntet = weizenGeerntet;
+   }
 }

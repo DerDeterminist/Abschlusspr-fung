@@ -1,28 +1,38 @@
 package app;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Locale;
 
 import dao.LesenUndSchreibenLernen;
+import dao.MitDBreden;
 import gui.Login;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Main extends Application{
-    //todo datenbank; dokumentation; codestyle
+public class Main extends Application
+{
+   //todo datenbank; dokumentation; codestyle
 
-    public static void main(String[] args) {
+   public static void main(String[] args)
+   {
 
-        I18n.i18nSetup(Locale.ENGLISH);
 
-        // Daten aus CSV einlesen
-        LesenUndSchreibenLernen.felderLesen();
-        LesenUndSchreibenLernen.nutzerLesen();
+      //        MitDBreden.createConnection();
+      I18n.i18nSetup(Locale.GERMAN);
 
-        launch(args);
-    }
+      // Daten aus CSV einlesen
+      LesenUndSchreibenLernen.nutzerLesen();
 
-    @Override
-    public void start(Stage primaryStage) {
-        new Login().login(primaryStage);
-    }
+
+      launch(args);
+   }
+
+
+   @Override
+   public void start(Stage primaryStage)
+   {
+      new Login().login(primaryStage);
+   }
 }

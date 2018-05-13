@@ -11,11 +11,13 @@ import javafx.scene.chart.PieChart;
 public class Pie_Chart_geerntet
 {
 
-   public static PieChart.Data maisData = new PieChart.Data(I18n.getText("sweet_corn")+" "+ Nutzer.aktuellerNutzer.getMaisGeerntet(),Nutzer.aktuellerNutzer.getMaisGeerntet());
-   public static PieChart.Data weizenData = new PieChart.Data(I18n.getText("wheat")+" "+Nutzer.aktuellerNutzer.getWeizenGeerntet(),Nutzer.aktuellerNutzer.getWeizenGeerntet());
+   public static PieChart.Data maisData = new PieChart.Data(
+         I18n.getText("sweet_corn") + " " + Nutzer.aktuellerNutzer.getMaisGeerntet(), Nutzer.aktuellerNutzer.getMaisGeerntet());
+   public static PieChart.Data weizenData = new PieChart.Data(
+         I18n.getText("wheat") + " " + Nutzer.aktuellerNutzer.getWeizenGeerntet(), Nutzer.aktuellerNutzer.getWeizenGeerntet());
    public static ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-           maisData,
-           weizenData
+         maisData,
+         weizenData
    );
 
    public Node pieChart_geertntet()

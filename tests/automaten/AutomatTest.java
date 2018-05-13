@@ -13,14 +13,14 @@ public class AutomatTest {
     public void AutomatenTest() throws Exception {
         Feld feld = new Feld("test", PflanzenArten.Mais);
         ErntAutomat erntAutomat = new ErntAutomat();
-        GießAutomat gießAutomat = new GießAutomat();
+        GiessAutomat giessAutomat = new GiessAutomat();
         Saenautomat saenautomat = new Saenautomat();
 
         assertTrue(feld.getPflanzenliste().size()==feld.getPflanzenAnz());
 
 
         for (int i=0;i<51;i++){
-            gießAutomat.arbeiten(feld);
+            giessAutomat.arbeiten(feld);
             // da mutltithreading
             Thread.sleep(150);
         }

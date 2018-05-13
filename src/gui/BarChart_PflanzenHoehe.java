@@ -64,18 +64,18 @@ public class BarChart_PflanzenHoehe
                            for( XYChart.Data<String, Number> data : series.getData() )
                            {
                               Feld feldByName = Util.getFeldByName(name);
-                              if(feldByName == null)
+                              if( feldByName == null )
                               {
                                  System.out.println("Alaram");
                               }
                               ArrayList<FeldPflanzen> pflanzenliste = feldByName.getPflanzenliste();
-                              if ( couter < pflanzenliste.size())
+                              if( couter < pflanzenliste.size() )
                               {
                                  data.setYValue(pflanzenliste.get(couter++).getHoehe());
                               }
                            }
                         }
-                        if (couter!=0)
+                        if( couter != 0 )
                         {
                            bc.getData().remove(couter, bc.getData().size());
                         }
