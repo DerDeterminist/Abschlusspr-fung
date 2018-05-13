@@ -8,6 +8,7 @@ import automaten.GiessAutomat;
 import automaten.Saenautomat;
 import dao.LesenUndSchreibenLernen;
 import gui.TabbedPane;
+import javafx.scene.control.Alert;
 import pflanzen.PflanzenArten;
 
 import java.util.List;
@@ -71,16 +72,29 @@ public class TabbedPane_automatenHandling
 
    public void neuButton(String name, PflanzenArten pflanzenArten, int pflanzenAnz)
    {
-
-      PflanzenArten pflanzenArten1 = PflanzenArten.Mais;
-      if( pflanzenArten.equals(I18n.getText("wheat")) )
-      {
-         pflanzenArten1 = PflanzenArten.Weizen;
+      boolean nameSchonVergeben = false;
+      for (Feld feld : Nutzer.aktuellerNutzer.getNutzerFelder()) {
+         if (feld.getName().equals(name)){
+            nameSchonVergeben = true;
+         }
       }
-      Feld feld = new Feld(name, pflanzenArten1, pflanzenAnz, Nutzer.aktuellerNutzer.getName());
-      TabbedPane.listAutomaten.getItems().add(feld.getName());
-      TabbedPane.listContent.getItems().add(feld.getName());
-      TabbedPane.listUebersicht.getItems().add(feld.getName());
+      if (!nameSchonVergeben){
+         PflanzenArten pflanzenArten1 = PflanzenArten.Mais;
+         if( pflanzenArten.equals(I18n.getText("wheat")) )
+         {
+            pflanzenArten1 = PflanzenArten.Weizen;
+         }
+         Feld feld = new Feld(name, pflanzenArten1, pflanzenAnz, Nutzer.aktuellerNutzer.getName());
+         TabbedPane.listAutomaten.getItems().add(feld.getName());
+         TabbedPane.listContent.getItems().add(feld.getName());
+         TabbedPane.listUebersicht.getItems().add(feld.getName());
+      }
+      else {
+         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+         alert.setHeaderText(null);
+         alert.setContentText(I18n.getText("otherFieldName"));
+         alert.showAndWait();
+      }
    }
 
    public void loeschenButton(List<String> ausgewaelt)
