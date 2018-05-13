@@ -7,6 +7,7 @@ import dao.LesenUndSchreibenLernen;
 import dao.MitDBreden;
 import gui.Login;
 import gui.TabbedPane;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import pflanzen.PflanzenArten;
 
@@ -35,6 +36,13 @@ public class LoginHandling
          {
             LesenUndSchreibenLernen.nutzerInhalt.add(neuerNutzer);
             Nutzer.aktuellerNutzer = neuerNutzer;
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText(I18n.getText("new_UserInfo"));
+
+            alert.showAndWait();
+
             new Feld(I18n.getText("wheat_field") + neuerNutzer.getName(), PflanzenArten.Weizen, 50, neuerNutzer.getName());
             new Feld(I18n.getText("maisfeld") + neuerNutzer.getName(), PflanzenArten.Mais, 50, neuerNutzer.getName());
             new TabbedPane().starteProgramm(Login.getPrimaryStage());

@@ -1,16 +1,12 @@
 package gui;
 
-import java.awt.Label;
-
 import app.I18n;
 import app.Nutzer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
-import javafx.scene.input.MouseEvent;
 
 public class Pie_Chart_Pflanzenarten
 {

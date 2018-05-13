@@ -2,7 +2,6 @@ package gui_handling;
 
 import app.I18n;
 import dao.LesenUndSchreibenLernen;
-import dao.MitDBreden;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 

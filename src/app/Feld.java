@@ -1,15 +1,11 @@
 package app;
 
-import dao.LesenUndSchreibenLernen;
-import gui.TabbedPane;
 import pflanzen.FeldPflanzen;
 import pflanzen.Mais;
 import pflanzen.PflanzenArten;
 import pflanzen.Weizen;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Feld
 {

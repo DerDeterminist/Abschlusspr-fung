@@ -3,7 +3,6 @@ package dao;
 import app.Feld;
 import app.Nutzer;
 import app.Util;
-import gui.TabbedPane;
 import pflanzen.FeldPflanzen;
 import pflanzen.Mais;
 import pflanzen.PflanzenArten;
