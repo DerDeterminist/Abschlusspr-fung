@@ -67,7 +67,7 @@ public class MitDBreden
    {
       try
       {
-         statement.execute("CREATE TABLE IF NOT EXISTS Pflanzen." + feld.getName()
+         statement.execute("CREATE TABLE IF NOT EXISTS Pflanzen."+Nutzer.aktuellerNutzer.getName() +"."+ feld.getName()
                            + "(nr INTEGER"
                            + "hoehe real" + ");");
 

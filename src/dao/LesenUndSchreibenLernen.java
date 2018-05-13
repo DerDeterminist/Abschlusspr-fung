@@ -11,200 +11,151 @@ import pflanzen.Weizen;
 import java.io.*;
 import java.util.ArrayList;
 
-public class LesenUndSchreibenLernen
-{
+public class LesenUndSchreibenLernen {
 
-   public static ArrayList<Nutzer> nutzerInhalt = new ArrayList<>();
-   public static ArrayList<String> felderNamen = new ArrayList<>();
+    public static ArrayList<Nutzer> nutzerInhalt = new ArrayList<>();
+    public static ArrayList<String> felderNamen = new ArrayList<>();
 
-   public static void felderSchreiben()
-   {
+    public static void felderSchreiben() {
 
-      PrintWriter pw = null;
-      try
-      {
-         pw = new PrintWriter(new File("res\\index\\"+Nutzer.aktuellerNutzer.getName()+"-index.csv"));
-         for( Feld feld : Nutzer.aktuellerNutzer.getNutzerFelder() )
-         {
-            if (Nutzer.aktuellerNutzer.getSpeichart()==0){
-               pw.println(feld.getName() + ";" + feld.getPflanzenArten() + ";" + feld.getPflanzenAnz() + ";" + feld.getGehoertZuNutzer());
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("res\\index\\" + Nutzer.aktuellerNutzer.getName() + "-index.csv"));
+            for (Feld feld : Nutzer.aktuellerNutzer.getNutzerFelder()) {
+                pw.println(feld.getName() + ";" + feld.getPflanzenArten() + ";" + feld.getPflanzenAnz() + ";" + feld.getGehoertZuNutzer());
+                if (Nutzer.aktuellerNutzer.getSpeichart() == 0) {
+                    pflanzenSchreiben(feld);
+                } else {
+                   MitDBreden.pflanzenSchreiben(feld);
+                }
+
             }
-            else {
-               pflanzenSchreiben(feld);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) {
+                pw.close();
             }
-
-         }
-      }
-      catch(Exception e)
-      {
-         e.printStackTrace();
-      }
-      finally
-      {
-         if( pw != null )
-         {
-            pw.close();
-         }
-      }
-   }
+        }
+    }
 
 
-   public static void felderLesen()
-   {
+    public static void felderLesen() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File("res\\index\\" + Nutzer.aktuellerNutzer.getName() + "-index.csv")));
 
-      try
-      {
-         BufferedReader br = new BufferedReader(new FileReader(new File("res\\index\\"+Nutzer.aktuellerNutzer.getName()+"-index.csv")));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                felderNamen.add(line);
+                PflanzenArten temp = null;
+                String[] objekte = line.split(";");
+                if (objekte[1].equals("Mais")) {
+                    temp = PflanzenArten.Mais;
+                }
+                if (objekte[1].equals("Weizen")) {
+                    temp = PflanzenArten.Weizen;
+                }
+                if (objekte[3].equals(Nutzer.aktuellerNutzer.getName())) {
+                    if (Nutzer.aktuellerNutzer.getSpeichart() == 0) {
+                        Nutzer.aktuellerNutzer.getNutzerFelder()
+                                .add(new Feld(objekte[0], temp, pflanzenLesen(objekte[0]), Integer.parseInt(objekte[2]), objekte[3]));
+                    }
+                    if (Nutzer.aktuellerNutzer.getSpeichart() == 1) {
+                        Nutzer.aktuellerNutzer.getNutzerFelder()
+                                .add(new Feld(objekte[0], temp, MitDBreden.pflanzenLesen(objekte[0]), Integer.parseInt(objekte[2]), objekte[3]));
+                    }
+                }
 
-         String line = null;
-         while( (line = br.readLine()) != null )
-         {
-            felderNamen.add(line);
-            PflanzenArten temp = null;
-            String[] objekte = line.split(";");
-            if( objekte[1].equals("Mais") )
-            {
-               temp = PflanzenArten.Mais;
+
             }
-            if( objekte[1].equals("Weizen") )
-            {
-               temp = PflanzenArten.Weizen;
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void pflanzenSchreiben(Feld feld) {
+
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("res\\felder\\"+Nutzer.aktuellerNutzer.getName()+"-"+ feld.getName() + ".csv"));
+            for (FeldPflanzen pflanze : feld.getPflanzenliste()) {
+                pw.println(pflanze.getName() + ";" + pflanze.getHoehe() + ";" + pflanze.getPflanzenArten());
             }
-            if( objekte[3].equals(Nutzer.aktuellerNutzer.getName()) )
-            {
-               if( Nutzer.aktuellerNutzer.getSpeichart() == 0 )
-               {
-                  Nutzer.aktuellerNutzer.getNutzerFelder()
-                        .add(new Feld(objekte[0], temp, pflanzenLesen(objekte[0]), Integer.parseInt(objekte[2]), objekte[3]));
-               }
-               if( Nutzer.aktuellerNutzer.getSpeichart() == 1 )
-               {
-                  Nutzer.aktuellerNutzer.getNutzerFelder()
-                        .add(new Feld(objekte[0], temp, MitDBreden.pflanzenLesen(objekte[0]), Integer.parseInt(objekte[2]), objekte[3]));
-               }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) {
+                pw.close();
             }
+        }
 
+    }
 
-         }
-         br.close();
-      }
-      catch(IOException e)
-      {
-         e.printStackTrace();
-      }
-   }
+    private static ArrayList pflanzenLesen(String dateiName) {
+        ArrayList<FeldPflanzen> pflanzenArtenArrayList = new ArrayList<>();
 
-   private static void pflanzenSchreiben(Feld feld)
-   {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File("res\\felder\\"+Nutzer.aktuellerNutzer.getName()+"-"+ dateiName + ".csv")));
 
-      PrintWriter pw = null;
-      try
-      {
-         pw = new PrintWriter(new File("res\\felder\\" + feld.getName() + ".csv"));
-         for( FeldPflanzen pflanze : feld.getPflanzenliste() )
-         {
-            pw.println(pflanze.getName() + ";" + pflanze.getHoehe() + ";" + pflanze.getPflanzenArten());
-         }
-      }
-      catch(Exception e)
-      {
-         e.printStackTrace();
-      }
-      finally
-      {
-         if( pw != null )
-         {
-            pw.close();
-         }
-      }
+            String line = null;
+            while ((line = br.readLine()) != null) {
 
-   }
-
-   private static ArrayList pflanzenLesen(String dateiName)
-   {
-      ArrayList<FeldPflanzen> pflanzenArtenArrayList = new ArrayList<>();
-
-      try
-      {
-         System.out.println(new File("res\\felder\\" + dateiName + ".csv").getAbsolutePath());
-         BufferedReader br = new BufferedReader(new FileReader(new File("res\\felder\\" + dateiName + ".csv")));
-
-         String line = null;
-         while( (line = br.readLine()) != null )
-         {
-
-            PflanzenArten temp = null;
-            String[] objekte = line.split(";");
-            if( objekte[2].equals("Mais") )
-            {
-               temp = PflanzenArten.Mais;
-               pflanzenArtenArrayList.add(new Mais(objekte[0], Double.parseDouble(objekte[1]), temp));
+                PflanzenArten temp = null;
+                String[] objekte = line.split(";");
+                if (objekte[2].equals("Mais")) {
+                    temp = PflanzenArten.Mais;
+                    pflanzenArtenArrayList.add(new Mais(objekte[0], Double.parseDouble(objekte[1]), temp));
+                }
+                if (objekte[2].equals("Weizen")) {
+                    temp = PflanzenArten.Weizen;
+                    pflanzenArtenArrayList.add(new Weizen(objekte[0], Double.parseDouble(objekte[1]), temp));
+                }
             }
-            if( objekte[2].equals("Weizen") )
-            {
-               temp = PflanzenArten.Weizen;
-               pflanzenArtenArrayList.add(new Weizen(objekte[0], Double.parseDouble(objekte[1]), temp));
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return pflanzenArtenArrayList;
+    }
+
+
+    public static void nutzerSchreiben() {
+
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(new File("res\\index\\nutzer.csv"));
+            for (Nutzer nutzer : nutzerInhalt) {
+                pw.println(nutzer.getName() + ";" + nutzer.getPasswort() + ";" + nutzer.getSpeichart() + ";" + nutzer.getSprache() + ";" + nutzer
+                        .getMaisGeerntet() + ";" + nutzer.getWeizenGeerntet());
             }
-         }
-         br.close();
-      }
-      catch(IOException e)
-      {
-         e.printStackTrace();
-      }
-      return pflanzenArtenArrayList;
-   }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pw != null) {
+                pw.close();
+            }
+        }
+    }
 
+    public static ArrayList nutzerLesen() {
 
-   public static void nutzerSchreiben()
-   {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File("res\\index\\nutzer.csv")));
 
-      PrintWriter pw = null;
-      try
-      {
-         pw = new PrintWriter(new File("res\\index\\nutzer.csv"));
-         for( Nutzer nutzer : nutzerInhalt )
-         {
-            pw.println(nutzer.getName() + ";" + nutzer.getPasswort() + ";" + nutzer.getSpeichart() + ";" + nutzer.getSprache() + ";" + nutzer
-                  .getMaisGeerntet() + ";" + nutzer.getWeizenGeerntet());
-         }
-      }
-      catch(Exception e)
-      {
-         e.printStackTrace();
-      }
-      finally
-      {
-         if( pw != null )
-         {
-            pw.close();
-         }
-      }
-   }
+            String line = null;
+            while ((line = br.readLine()) != null) {
 
-   public static ArrayList nutzerLesen()
-   {
-
-      try
-      {
-         BufferedReader br = new BufferedReader(new FileReader(new File("res\\index\\nutzer.csv")));
-
-         String line = null;
-         while( (line = br.readLine()) != null )
-         {
-
-            String[] objekte = line.split(";");
-            nutzerInhalt
-                  .add(new Nutzer(objekte[0], objekte[1], Integer.parseInt(objekte[2]), Integer.parseInt(objekte[3]), Integer.parseInt(objekte[4]),
-                        Integer.parseInt(objekte[5])
-                  ));
-         }
-         br.close();
-      }
-      catch(IOException e)
-      {
-         e.printStackTrace();
-      }
-      return nutzerInhalt;
-   }
+                String[] objekte = line.split(";");
+                nutzerInhalt
+                        .add(new Nutzer(objekte[0], objekte[1], Integer.parseInt(objekte[2]), Integer.parseInt(objekte[3]), Integer.parseInt(objekte[4]),
+                                Integer.parseInt(objekte[5])
+                        ));
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nutzerInhalt;
+    }
 }

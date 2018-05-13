@@ -26,7 +26,7 @@ public class BarChart_ErwarteErnte
       final NumberAxis yAxis = new NumberAxis();
       final BarChart<String, Number> bc =
             new BarChart<String, Number>(xAxis, yAxis);
-      xAxis.setLabel("fields");
+      xAxis.setLabel(I18n.getText("fields"));
       xAxis.setTickLabelFont(Util.ueberschriftFont);
       xAxis.setTickLabelFill(Color.BLACK);
       //todo label yAxis übernimmt die werte nicht
