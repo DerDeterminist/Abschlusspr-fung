@@ -16,7 +16,7 @@ public class Saenautomat implements Automaten
    }
 
    // Pflanzen hinzufügen, wenn weniger als Wert im Feld
-   private void saeen(Feld feld)
+   private synchronized void saeen(Feld feld)
    {
       new Thread(() ->
       {

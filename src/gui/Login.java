@@ -47,7 +47,6 @@ public class Login
       accPwIn.setPromptText(I18n.getText("password"));
       TextField accNameIn = new TextField();
       accNameIn.setPromptText(I18n.getText("username"));
-      //todo warum wird text nicht übernommen?
       Button _newAcc = new Button("new_account");
       _newAcc.addEventHandler(ActionEvent.ACTION, (e) -> new LoginHandling().neuerNutzer(accNameIn.getText(), accPwIn.getText(), hinweis));
       Button login = new Button(I18n.getText("login"));

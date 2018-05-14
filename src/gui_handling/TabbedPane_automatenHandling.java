@@ -64,7 +64,6 @@ public class TabbedPane_automatenHandling
             saenautomat.arbeiten(feld);
             giessAutomat.arbeiten(feld);
             erntAutomat.arbeiten(feld);
-            //todo fragen: muss die nächste zeile oder reicht beim programm beenden?
             LesenUndSchreibenLernen.felderSchreiben();
          }
       }

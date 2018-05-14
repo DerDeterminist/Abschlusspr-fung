@@ -43,8 +43,6 @@ public class TabbedPane
    public void starteProgramm(Stage primaryStage)
    {
       listenStatsGeneriren();
-
-      //todo villeicht nächste zeile über
       primaryStage.setTitle(I18n.getText("farm"));
       primaryStage.setOnCloseRequest((e) -> {
          e.consume();
@@ -185,23 +183,34 @@ public class TabbedPane
       Button saeen = new Button(I18n.getText("seed"));
       Button alles = new Button(I18n.getText("all_machines"));
       Button loeschen = new Button(I18n.getText("delete"));
-      ernen.addEventHandler(ActionEvent.ACTION,
-            (e) -> new TabbedPane_automatenHandling().erntenButton(listAutomaten.getSelectionModel().getSelectedItems()));
-      geißen.addEventHandler(ActionEvent.ACTION,
-            (e) -> new TabbedPane_automatenHandling().geißenButton(listAutomaten.getSelectionModel().getSelectedItems()));
-      saeen.addEventHandler(ActionEvent.ACTION,
-            (e) -> new TabbedPane_automatenHandling().saeenButton(listAutomaten.getSelectionModel().getSelectedItems()));
-      alles.addEventHandler(ActionEvent.ACTION,
-            (e) -> new TabbedPane_automatenHandling().allesButton(listAutomaten.getSelectionModel().getSelectedItems()));
+      ernen.addEventHandler(
+            ActionEvent.ACTION,
+            (e) -> new TabbedPane_automatenHandling().erntenButton(listAutomaten.getSelectionModel().getSelectedItems())
+      );
+      geißen.addEventHandler(
+            ActionEvent.ACTION,
+            (e) -> new TabbedPane_automatenHandling().geißenButton(listAutomaten.getSelectionModel().getSelectedItems())
+      );
+      saeen.addEventHandler(
+            ActionEvent.ACTION,
+            (e) -> new TabbedPane_automatenHandling().saeenButton(listAutomaten.getSelectionModel().getSelectedItems())
+      );
+      alles.addEventHandler(
+            ActionEvent.ACTION,
+            (e) -> new TabbedPane_automatenHandling().allesButton(listAutomaten.getSelectionModel().getSelectedItems())
+      );
       button_neu.addEventHandler(ActionEvent.ACTION, (e) ->
       {
          new TabbedPane_automatenHandling()
                .neuButton(name.getText(), Util.StringToPflanzenart(arten.getSelectionModel().getSelectedItem().toString()),
-                     Integer.parseInt(anz.getText()));
+                     Integer.parseInt(anz.getText())
+               );
          liste_FelderListe_aneigen();
       });
-      loeschen.addEventHandler(ActionEvent.ACTION,
-            (e) -> new TabbedPane_automatenHandling().loeschenButton(listAutomaten.getSelectionModel().getSelectedItems()));
+      loeschen.addEventHandler(
+            ActionEvent.ACTION,
+            (e) -> new TabbedPane_automatenHandling().loeschenButton(listAutomaten.getSelectionModel().getSelectedItems())
+      );
       gridPane.add(ernen, 3, 2);
       gridPane.add(geißen, 4, 2);
       gridPane.add(saeen, 5, 2);

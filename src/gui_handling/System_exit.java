@@ -25,9 +25,5 @@ public class System_exit
          LesenUndSchreibenLernen.nutzerSchreiben();
          System.exit(0);
       }
-      else
-      {
-         // ... user chose CANCEL or closed the dialog
-      }
    }
 }

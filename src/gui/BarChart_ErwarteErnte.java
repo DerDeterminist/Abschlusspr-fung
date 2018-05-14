@@ -34,7 +34,7 @@ public class BarChart_ErwarteErnte
       yAxis.setTickLabelFont(Util.ueberschriftFont);
       yAxis.setTickLabelFill(Color.BLACK);
 
-      for( Feld feld : Nutzer.aktuellerNutzer.getNutzerFelder())
+      for( Feld feld : Nutzer.aktuellerNutzer.getNutzerFelder() )
       {
 
          XYChart.Series series = new XYChart.Series();

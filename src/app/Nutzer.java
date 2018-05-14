@@ -13,10 +13,6 @@ public class Nutzer
    int weizenGeerntet;
    ArrayList<Feld> NutzerFelder = new ArrayList<>();
 
-   public ArrayList<Feld> getNutzerFelder() {
-      return NutzerFelder;
-   }
-
    public static Nutzer aktuellerNutzer;
 
    public Nutzer(String name, String passwort, Integer speicherart, Integer sprache)
@@ -82,18 +78,13 @@ public class Nutzer
       return maisGeerntet;
    }
 
-   public void setMaisGeerntet(int maisGeerntet)
-   {
-      this.maisGeerntet = maisGeerntet;
-   }
-
    public int getWeizenGeerntet()
    {
       return weizenGeerntet;
    }
 
-   public void setWeizenGeerntet(int weizenGeerntet)
+   public ArrayList<Feld> getNutzerFelder()
    {
-      this.weizenGeerntet = weizenGeerntet;
+      return NutzerFelder;
    }
 }

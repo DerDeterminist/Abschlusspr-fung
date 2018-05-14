@@ -31,7 +31,6 @@ public class BarChart_PflanzenHoehe
       xAxis.setLabel(I18n.getText("plants"));
       xAxis.setTickLabelFont(Util.ueberschriftFont);
       xAxis.setTickLabelFill(Color.BLACK);
-      //todo label yAxis übernimmt die werte nicht
       yAxis.setLabel(I18n.getText("height"));
       yAxis.setTickLabelFont(Util.ueberschriftFont);
       yAxis.setTickLabelFill(Color.BLACK);

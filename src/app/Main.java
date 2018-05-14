@@ -16,7 +16,6 @@ public class Main extends Application
       // Daten aus CSV einlesen
       LesenUndSchreibenLernen.nutzerLesen();
 
-
       launch(args);
    }
 

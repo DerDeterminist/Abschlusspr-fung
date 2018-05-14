@@ -16,7 +16,7 @@ public class ErntAutomat implements Automaten
    }
 
    // remove Pflanze, wenn Pflanze größer als im Enum
-   private void erten(Feld feld)
+   private synchronized void erten (Feld feld)
    {
       new Thread(() ->
       {
